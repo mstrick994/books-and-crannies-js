@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books & Crannies</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="gradient-bg">
+    <!-- HEADER -->
+    <header class="header-bar">
+      <div class="wrapper">
+        <!-- Hamburger Menu -->
+        <button
+          class="hamburger-menu"
+          id="hamburgerMenu"
+          aria-label="Open menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <!-- Logo -->
+        <div class="logo-component">
+          <h1><a href="/index.html">Books & Crannies</a></h1>
+        </div>
+
+        <!-- Navigation Dropdown -->
+        <div class="navigation-component">
+          <section class="browse-dropdown">
+            <button class="dropbtn">Browse</button>
+            <div id="browseDropdown" class="dropdown-content">
+              <ul class="book-genres" id="bookGenres">
+                <!-- JS will inject <li> genre links here -->
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-component">
+          <div class="searchbar-component">
+            <div class="searchbar">
+              <div class="search-facet">
+                <label class="search-facet-selector">
+                  <span class="search-facet-value" aria-hidden="true"
+                    >Author</span
+                  >
+                  <select aria-label="Search by" id="searchBy">
+                    <option value="all">All</option>
+                    <option value="title">Title</option>
+                    <option value="trending">Trending</option>
+                    <option value="author">Author</option>
+                    <option value="price">Price</option>
+                    <option value="best-sellers">Best Sellers</option>
+                  </select>
+                </label>
+              </div>
+              <form class="searchbar-input" action="/search" method="get">
+                <input
+                  type="text"
+                  name="q"
+                  placeholder="Search"
+                  aria-label="search"
+                />
+                <input
+                  class="search-bar-submit"
+                  type="submit"
+                  aria-label="Search submit"
+                />
+              </form>
+            </div>
+            <div class="search-dropdown">
+              <ul class="search-results">
+                <!-- JS will inject live search results here -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth Links -->
+        <ul class="auth-component">
+          <li class="login"><a class="btn">Login</a></li>
+          <li><a class="btn primary">Sign Up</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- MOBILE SIDEBAR -->
+    <aside class="mobile-sidebar">
+      <div class="wrapper">
+        <!-- Logo -->
+        <div class="logo-component">
+          <h1><a href="/index.html">Books & Crannies</a></h1>
+        </div>
+
+        <!-- Navigation Dropdown (MOBILE) -->
+        <div class="navigation-component">
+          <section class="browse-dropdown browse-dropdown--mobile">
+            <button class="dropbtn dropbtn--mobile">Browse</button>
+            <div id="browseDropdownMobile" class="dropdown-content">
+              <ul class="book-genres" id="bookGenresMobile">
+                <!-- JS will inject genre links here -->
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <!-- Search (MOBILE) -->
+        <div class="search-component">
+          <div class="searchbar-component">
+            <div class="searchbar">
+              <div class="search-facet">
+                <label class="search-facet-selector">
+                  <span class="search-facet-value" aria-hidden="true"
+                    >Author</span
+                  >
+                  <select aria-label="Search by" id="searchByMobile">
+                    <option value="all">All</option>
+                    <option value="title">Title</option>
+                    <option value="trending">Trending</option>
+                    <option value="author">Author</option>
+                    <option value="price">Price</option>
+                    <option value="best-sellers">Best Sellers</option>
+                  </select>
+                </label>
+              </div>
+              <form class="searchbar-input" action="/search" method="get">
+                <input
+                  type="text"
+                  name="q"
+                  placeholder="Search"
+                  aria-label="search"
+                />
+                <input
+                  class="search-bar-submit"
+                  type="submit"
+                  aria-label="Search submit"
+                />
+              </form>
+            </div>
+            <div class="search-dropdown">
+              <ul class="search-results">
+                <!-- JS will inject results here -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth (MOBILE) -->
+        <ul class="auth-component">
+          <li class="login"><a class="btn">Login</a></li>
+          <li><a class="btn primary">Sign Up</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="wrapper">
+        <div class="main-content">
+          <h2 class="main-title">Books to Read</h2>
+          <div class="product-cards">
+            <!-- JS will populate book cards here -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h4>Books & Crannies</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Mission</a></li>
+            <li><a href="#">Our Fundraisers</a></li>
+            <li><a href="#">Behind the Name</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Reader Resources</h4>
+          <ul>
+            <li><a href="#">Free Online Libraries</a></li>
+            <li><a href="#">How to Read Digitally</a></li>
+            <li><a href="#">Book Clubs Near You</a></li>
+            <li><a href="#">Tips for New Readers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Contact & Help</h4>
+          <ul>
+            <li><a href="#">Email Us</a></li>
+            <li><a href="#">Support & FAQ</a></li>
+            <li><a href="#">Report a Bug</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Stay Connected</h4>
+          <ul class="social-links">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">X (Twitter)</a></li>
+            <li><a href="#">YouTube</a></li>
+            <li><a href="#">RSS Feed</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- BOOK MODAL -->
+    <div class="modal-overlay hidden" id="bookModal">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <img id="modalImage" alt="Book cover" />
+        <div class="modal-text">
+          <h2 id="modalTitle"></h2>
+          <p class="author-year" id="modalAuthorYear"></p>
+          <p id="modalDescription"></p>
+          <a href="#" target="_blank" id="modalLink">Read Online</a>
+        </div>
+      </div>
+    </div>
+
+    <!--  MAIN JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
