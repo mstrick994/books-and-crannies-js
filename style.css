@@ -1,29 +1,36 @@
 /* 1. Use a more-intuitive box-sizing model */
-*,
-*::before,
-*::after {
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /* 2. Remove default margin */
 * {
   margin: 0;
 }
-
 /* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
   html {
     interpolate-size: allow-keywords;
   }
 }
-
 body {
   /* 4. Add accessible line-height */
   line-height: 1.5;
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
-
+html,
+body {
+  height: 100vh;
+  padding: 0;
+}
 /* 6. Improve media defaults */
 img,
 picture,
@@ -33,7 +40,6 @@ svg {
   display: block;
   max-width: 100%;
 }
-
 /* 7. Inherit fonts for form controls */
 input,
 button,
@@ -41,7 +47,6 @@ textarea,
 select {
   font: inherit;
 }
-
 /* 8. Avoid text overflows */
 p,
 h1,
@@ -52,7 +57,6 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
-
 /* 9. Improve line wrapping */
 p {
   text-wrap: pretty;
@@ -65,59 +69,291 @@ h5,
 h6 {
   text-wrap: balance;
 }
-
-/*
-  10. Create a root stacking context
-*/
+a {
+  color: var(--primary-600); /* block-background-text-normal */
+  text-decoration: none;
+}
+/*  10. Create a root stacking context*/
 #root,
 #__next {
   isolation: isolate;
 }
-
 :root {
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 1rem;
-  --space-4: 2rem;
-
-  /* Colors */
-  --primary: #334155;
-  --accent: #38bdf8;
-  --bg: #f5e5c3;
-  --text: #18181b;
-  --border: #e4e4e7;
-  --success: #14b8a6;
-  --warning: #fbbf24;
-  --danger: #ef4444;
-
-  /* Typography */
-  --font-base: "Merriweather", "Inter", sans-serif;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-sm: 0.9rem;
-
-  /* Radius & Shadow */
-  --radius: 0.7rem;
-  --shadow: 0 2px 8px rgba(40, 40, 80, 0.06);
+  /* ===== SPACING SYSTEM ===== */
+  --space-xs: 0.125rem; /* 2px */
+  --space-sm: 0.25rem; /* 4px */
+  --space-1: 0.5rem; /* 8px */
+  --space-2: 0.75rem; /* 12px */
+  --space-3: 1rem; /* 16px */
+  --space-4: 1.5rem; /* 24px */
+  --space-5: 2rem; /* 32px */
+  --space-6: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-10: 6rem; /* 96px */
+  /* ===== LAYOUT ===== */
+  --max-width: 1200px;
+  --max-width-prose: 65ch;
+  --header-height: 4rem;
+  --sidebar-width: 280px;
+  /* ===== BREAKPOINTS ===== */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  /* ===== COLOR PALETTE ===== */
+  /* Primary Brand Colors */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-900: #1e3a8a;
+  /* Vintage Book Theme Colors */
+  --vintage-cream: #f5e5c3;
+  --vintage-brown: #8b4513;
+  --vintage-gold: #daa520;
+  --vintage-burgundy: #800020;
+  --vintage-forest: #355e3b;
+  /* Semantic Colors */
+  --color-bg-primary: var(--vintage-cream);
+  --color-bg-secondary: #fefbf3;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #6b7280;
+  --color-accent: var(--vintage-gold);
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-border: #e5e7eb;
+  --color-border-focus: var(--vintage-brown);
+  /* ===== TYPOGRAPHY ===== */
+  --font-family-serif: "Merriweather", "Times New Roman", serif;
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: "Fira Code", "Courier New", monospace;
+  /* Font Sizes */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  /* Font Weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  /* ===== BORDERS & RADIUS ===== */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  --border-width: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-bounce: 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* ===== Z-INDEX SCALE ===== */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  /* ===== COMPONENT-SPECIFIC ===== */
+  --book-card-width: 280px;
+  --book-card-aspect: 3/4;
+  --search-bar-height: 2.5rem;
+  --nav-dropdown-width: 200px;
 }
-
+/* Dark mode support for future */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #1a1a1a;
+    --color-bg-secondary: #2d2d2d;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #e5e5e5;
+    --color-text-muted: #a1a1aa;
+    --color-border: #374151;
+  }
+}
 .gradient-bg {
-  background: #ffd89b;
-  background: -webkit-linear-gradient(
-    to bottom,
-    #9cffff,
-    #c9ffdc,
-    #ff9e8e,
-    #ffd89b
-  );
   background: linear-gradient(160deg, #9cffff 10%, #ffd89b 100%, #ff9e8e 100%);
+  font-family: var(--font-family-serif);
+  min-height: 100vh;
+}
+/* Header */
+.header-bar {
+  background-color: var(--color-bg-primary);
+  padding: var(--space-3) 0; /* Changed to 0 for horizontal padding */
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+.wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keep space-between for main sections */
+  gap: var(--space-2);
+  height: var(--header-height);
+  padding: 0 var(--space-2);
+}
+.logo-component {
+  flex-shrink: 0; /* Don't shrink the logo */
+  min-width: fit-content; /* Ensure it takes minimum content width */
+}
+.logo-component h1 a {
+  font-family: "Playfair Display", serif; /* Or your chosen font */
+  font-weight: var(--font-medium);
+  color: var(--primary-600);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(1.2rem, 4vw, 1.8rem); /* Adjusted clamp values */
+  text-decoration: none;
+  line-height: 0.9; /* Adjust line height for stacked text */
+}
+.logo-component h1 a .top-line {
+  font-weight: 400;
+}
+.logo-component h1 a .bottom-line {
+  font-style: italic;
+}
+.dropbtn {
+  background: none;
+  border: none;
+  color: var(--primary-600);
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3); /* Add padding for better hit area */
+  white-space: nowrap; /* Prevent wrapping */
+}
+.nav-search-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1; /* Allow it to grow and shrink */
+  justify-content: center; /* Center content within this container */
+  min-width: 0; /* Crucial for allowing shrinking */
+}
+.search-component {
+  flex: 1; /* Allow search component to take available space */
+  max-width: 400px; /* Limit max width on larger screens */
+  min-width: 180px; /* Ensure it doesn't get too small on desktop */
+}
+.searchbar {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-secondary);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+  width: 100%; /* Make searchbar take full width of its parent */
+}
+.searchbar:focus-within {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-focus);
+}
+/* Normalize the heights and alignment of the searchbar elements */
+.searchbar input,
+.searchbar select,
+.searchbar button,
+.search-bar-submit {
+  height: var(--search-bar-height);
+  border: none;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-base);
+}
+.searchbar-input {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 1; /* Allow the input part to grow */
+  min-width: 0; /* Allow input to shrink */
+}
+.searchbar-input input[type="text"] {
+  flex: 1;
+  min-width: 0; /* Allows shrinking */
+  padding: 0 var(--space-3);
+}
+.search-by-dropdown {
+  width: fit-content;
+  min-width: 80px; /* Give it a reasonable min-width */
+  text-align: center;
+  background: var(--vintage-cream);
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 0 var(--space-1); /* Add padding for better appearance */
+  height: var(--search-bar-height); /* Ensure consistent height */
+}
+.search-bar-submit {
+  width: var(--search-bar-height); /* Keep it square */
+  cursor: pointer;
+  background: white url("https://img.icons8.com/ios-glyphs/30/search--v1.png") center no-repeat;
+  background-size: 16px 16px; /* Ensure icon size is consistent */
+  transition: background-color var(--transition-fast);
+  appearance: none;
+  height: var(--search-bar-height);
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+.auth-component {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+  flex-shrink: 0; /* Don't shrink auth buttons */
+  white-space: nowrap; /* ensures Login / Sign Up don’t wrap */
+  padding-left: 0;
 }
 
+.auth-component li {
+  cursor: pointer;
+}
+
+.btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: var(--border-width) solid transparent;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
 .mobile-sidebar {
   display: none;
 }
-
 .hamburger-menu {
   display: none;
   flex-direction: column;
@@ -127,30 +363,55 @@ h6 {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: auto; /* Push to the right when visible */
 }
-
 .hamburger-menu span {
   display: block;
   height: 3px;
-  background-color: #333;
+  background-color: var(--primary-600);
   border-radius: 2px;
 }
-
-.search-bar-submit {
-  background: url("/static/images/search-icon.svg") center center no-repeat;
-  background-size: 16px 16px;
-  width: 36px;
-  height: 36px;
-  border: none;
-  cursor: pointer;
-  appearance: none;
-  border-radius: 0 0.3em 0.3em 0; /* Right side radius only */
-}
-
-/* Show only on small screens */
+/* Responsive breakpoints using custom properties */
 @media (max-width: 768px) {
+  /* Hide desktop navigation and auth, show hamburger */
+  .nav-search-container .browse-dropdown, /* Target specific dropdown */
+  .auth-component {
+    display: none;
+  }
   .hamburger-menu {
     display: flex;
+  }
+
+  /* Adjust search component for smaller screens */
+  .search-component {
+    max-width: 300px; /* Allow it to be a bit wider on tablets */
+    min-width: 150px; /* Ensure it doesn't get too small */
+  }
+
+  .search-by-dropdown {
+    display: none; /* Hide search facet dropdown on mobile */
+  }
+}
+
+
+
+/* Further adjustments for smaller mobile screens */
+@media (max-width: 492px) {
+  .wrapper {
+    padding: 0 var(--space-2); /* Reduce horizontal padding */
+  }
+
+  .logo-component h1 a {
+    font-size: clamp(1rem, 3.5vw, 1.4rem); /* Make logo slightly smaller */
+  }
+
+  .search-component {
+    min-width: 120px; /* Allow search to shrink more */
+  }
+}
+
+@media (max-width: 492px) {
+  .searchbar {
+    display: none;
   }
 }

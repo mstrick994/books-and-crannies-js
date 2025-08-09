@@ -9,11 +9,89 @@
       href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body class="gradient-bg">
     <!-- HEADER -->
     <header class="header-bar">
-      <div class="wrapper">
+      <div class="wrapper header-wrapper">
+        <!-- Logo -->
+        <div class="logo-component">
+          <h1>
+            <a href="/index.html">
+              <span class="top-line">Books &</span>
+              <span class="bottom-line">Crannies</span>
+            </a>
+          </h1>
+        </div>
+
+        <div class="nav-search-container">
+          <!-- Navigation Dropdown -->
+          <div class="navigation-component">
+            <section class="browse-dropdown">
+              <button class="dropbtn">Browse</button>
+              <div id="browseDropdown" class="dropdown-content">
+                <ul class="book-genres" id="bookGenres">
+                  <!-- JS will inject <li> genre links here -->
+                </ul>
+              </div>
+            </section>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="search-component">
+            <div class="searchbar-component">
+              <div class="searchbar">
+                <div class="search-facet">
+                  <label class="search-facet-selector">
+                    <span class="search-facet-value" aria-hidden="true"></span>
+                    <select
+                      class="search-by-dropdown"
+                      aria-label="Search by"
+                      id="searchBy"
+                    >
+                      <option value="all">All</option>
+                      <option value="title">Title</option>
+                      <option value="trending">Trending</option>
+                      <option value="author">Author</option>
+                      <option value="price">Price</option>
+                      <option value="best-sellers">Best Sellers</option>
+                    </select>
+                  </label>
+                </div>
+                <form class="searchbar-input" action="/search" method="get">
+                  <input
+                    type="text"
+                    name="q"
+                    placeholder="Search"
+                    aria-label="search"
+                  />
+                  <input
+                    class="search-bar-submit"
+                    type="submit"
+                    value=""
+                    aria-label="Search submit"
+                  />
+                </form>
+              </div>
+              <div class="search-dropdown">
+                <ul class="search-results">
+                  <!-- JS will inject live search results here -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth Links -->
+        <ul class="auth-component">
+          <li class="login"><a class="btn">Login</a></li>
+          <li><a class="btn primary">Sign Up</a></li>
+        </ul>
+
         <!-- Hamburger Menu -->
         <button
           class="hamburger-menu"
@@ -24,140 +102,117 @@
           <span></span>
           <span></span>
         </button>
-
-        <!-- Logo -->
-        <div class="logo-component">
-          <h1><a href="/index.html">Books & Crannies</a></h1>
-        </div>
-
-        <!-- Navigation Dropdown -->
-        <div class="navigation-component">
-          <section class="browse-dropdown">
-            <button class="dropbtn">Browse</button>
-            <div id="browseDropdown" class="dropdown-content">
-              <ul class="book-genres" id="bookGenres">
-                <!-- JS will inject <li> genre links here -->
-              </ul>
-            </div>
-          </section>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="search-component">
-          <div class="searchbar-component">
-            <div class="searchbar">
-              <div class="search-facet">
-                <label class="search-facet-selector">
-                  <span class="search-facet-value" aria-hidden="true"
-                    >Author</span
-                  >
-                  <select aria-label="Search by" id="searchBy">
-                    <option value="all">All</option>
-                    <option value="title">Title</option>
-                    <option value="trending">Trending</option>
-                    <option value="author">Author</option>
-                    <option value="price">Price</option>
-                    <option value="best-sellers">Best Sellers</option>
-                  </select>
-                </label>
-              </div>
-              <form class="searchbar-input" action="/search" method="get">
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search"
-                  aria-label="search"
-                />
-                <input
-                  class="search-bar-submit"
-                  type="submit"
-                  aria-label="Search submit"
-                />
-              </form>
-            </div>
-            <div class="search-dropdown">
-              <ul class="search-results">
-                <!-- JS will inject live search results here -->
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Auth Links -->
-        <ul class="auth-component">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
-        </ul>
       </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <h1>Discover the Magic of Classic Books</h1>
+          <p>
+            Browse and dive into our handpicked collection of timeless
+            literature.
+          </p>
+          <a href="#book-section" class="hero-button">Explore Our Selections</a>
+        </div>
+      </div>
+    </section>
+
     <!-- MOBILE SIDEBAR -->
     <aside class="mobile-sidebar">
-      <div class="wrapper">
-        <!-- Logo -->
-        <div class="logo-component">
-          <h1><a href="/index.html">Books & Crannies</a></h1>
-        </div>
+<!-- MOBILE SIDEBAR -->
+<aside class="mobile-sidebar">
+  <div class="wrapper header-wrapper">
+    <!-- Logo -->
+    <div class="logo-component">
+      <h1>
+        <a href="/index.html">
+          <span class="top-line">Books &</span>
+          <span class="bottom-line">Crannies</span>
+        </a>
+      </h1>
+    </div>
 
-        <!-- Navigation Dropdown (MOBILE) -->
-        <div class="navigation-component">
-          <section class="browse-dropdown browse-dropdown--mobile">
-            <button class="dropbtn dropbtn--mobile">Browse</button>
-            <div id="browseDropdownMobile" class="dropdown-content">
-              <ul class="book-genres" id="bookGenresMobile">
-                <!-- JS will inject genre links here -->
-              </ul>
-            </div>
-          </section>
-        </div>
+    <div class="nav-search-container">
+      <!-- Navigation Dropdown -->
+      <div class="navigation-component">
+        <section class="browse-dropdown">
+          <button class="dropbtn" id="browseBtnMobile">Browse</button>
+          <div id="browseDropdownMobile" class="dropdown-content">
+            <ul class="book-genres" id="bookGenresMobile">
+              <!-- JS will inject <li> genre links here -->
+            </ul>
+          </div>
+        </section>
+      </div>
 
-        <!-- Search (MOBILE) -->
-        <div class="search-component">
-          <div class="searchbar-component">
-            <div class="searchbar">
-              <div class="search-facet">
-                <label class="search-facet-selector">
-                  <span class="search-facet-value" aria-hidden="true"
-                    >Author</span
-                  >
-                  <select aria-label="Search by" id="searchByMobile">
-                    <option value="all">All</option>
-                    <option value="title">Title</option>
-                    <option value="trending">Trending</option>
-                    <option value="author">Author</option>
-                    <option value="price">Price</option>
-                    <option value="best-sellers">Best Sellers</option>
-                  </select>
-                </label>
-              </div>
-              <form class="searchbar-input" action="/search" method="get">
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search"
-                  aria-label="search"
-                />
-                <input
-                  class="search-bar-submit"
-                  type="submit"
-                  aria-label="Search submit"
-                />
-              </form>
+      <!-- Search Bar -->
+      <div class="search-component">
+        <div class="searchbar-component">
+          <div class="searchbar">
+            <div class="search-facet">
+              <label class="search-facet-selector">
+                <span class="search-facet-value" aria-hidden="true"></span>
+                <select
+                  class="search-by-dropdown"
+                  aria-label="Search by"
+                  id="searchByMobile"
+                >
+                  <option value="all">All</option>
+                  <option value="title">Title</option>
+                  <option value="trending">Trending</option>
+                  <option value="author">Author</option>
+                  <option value="price">Price</option>
+                  <option value="best-sellers">Best Sellers</option>
+                </select>
+              </label>
             </div>
-            <div class="search-dropdown">
-              <ul class="search-results">
-                <!-- JS will inject results here -->
-              </ul>
-            </div>
+            <form class="searchbar-input" id="searchFormMobile" action="/search" method="get">
+              <input
+                type="text"
+                name="q"
+                placeholder="Search"
+                aria-label="search"
+                id="searchInputMobile"
+              />
+              <input
+                class="search-bar-submit"
+                type="submit"
+                value=""
+                aria-label="Search submit"
+                id="searchSubmitMobile"
+              />
+            </form>
+          </div>
+          <div class="search-dropdown" id="searchDropdownMobile">
+            <ul class="search-results" id="searchResultsMobile">
+              <!-- JS will inject live search results here -->
+            </ul>
           </div>
         </div>
-
-        <!-- Auth (MOBILE) -->
-        <ul class="auth-component">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
-        </ul>
       </div>
+    </div>
+
+    <!-- Auth Links -->
+    <ul class="auth-component" id="authLinksMobile">
+      <li class="login"><a class="btn">Login</a></li>
+      <li><a class="btn primary">Sign Up</a></li>
+    </ul>
+
+    <!-- Hamburger Menu -->
+    <button
+      class="hamburger-menu"
+      id="hamburgerMenuMobile"
+      aria-label="Open menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</aside>
+
     </aside>
 
     <!-- MAIN CONTENT -->
