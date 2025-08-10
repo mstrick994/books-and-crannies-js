@@ -70,7 +70,7 @@ h6 {
   text-wrap: balance;
 }
 a {
-  color: var(--primary-600); /* block-background-text-normal */
+  color: var(--primary-900); /* block-background-text-normal */
   text-decoration: none;
 }
 /*  10. Create a root stacking context*/
@@ -201,13 +201,16 @@ a {
 }
 .gradient-bg {
   background: linear-gradient(160deg, #9cffff 10%, #ffd89b 100%, #ff9e8e 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: var(--font-family-serif);
   min-height: 100vh;
 }
 /* Header */
 .header-bar {
-  background-color: var(--color-bg-primary);
-  padding: var(--space-3) 0; /* Changed to 0 for horizontal padding */
+  background-color: var(--vintage-cream);
+  padding: var(--space-2) 0; /* Changed to 0 for horizontal padding */
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -233,7 +236,7 @@ a {
 .logo-component h1 a {
   font-family: "Playfair Display", serif; /* Or your chosen font */
   font-weight: var(--font-medium);
-  color: var(--primary-600);
+  color: var(--primary-900);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,7 +253,7 @@ a {
 .dropbtn {
   background: none;
   border: none;
-  color: var(--primary-600);
+  color: var(--primary-900);
   cursor: pointer;
   padding: var(--space-2) var(--space-3); /* Add padding for better hit area */
   white-space: nowrap; /* Prevent wrapping */
@@ -310,7 +313,7 @@ a {
   width: fit-content;
   min-width: 80px; /* Give it a reasonable min-width */
   text-align: center;
-  background: var(--vintage-cream);
+  background: var(--primary-100);
   white-space: nowrap;
   cursor: pointer;
   padding: 0 var(--space-1); /* Add padding for better appearance */
@@ -319,7 +322,8 @@ a {
 .search-bar-submit {
   width: var(--search-bar-height); /* Keep it square */
   cursor: pointer;
-  background: white url("https://img.icons8.com/ios-glyphs/30/search--v1.png") center no-repeat;
+  background: white url("https://img.icons8.com/ios-glyphs/30/search--v1.png")
+    center no-repeat;
   background-size: 16px 16px; /* Ensure icon size is consistent */
   transition: background-color var(--transition-fast);
   appearance: none;
@@ -347,13 +351,11 @@ a {
   transition: all var(--transition-fast);
   border: var(--border-width) solid transparent;
 }
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
+
 .mobile-sidebar {
   display: none;
 }
+
 .hamburger-menu {
   display: none;
   flex-direction: column;
@@ -368,9 +370,54 @@ a {
 .hamburger-menu span {
   display: block;
   height: 3px;
-  background-color: var(--primary-600);
+  background-color: var(--primary-900);
   border-radius: 2px;
 }
+
+/* Hero Section */
+
+.hero-section {
+  background-image: url("https://thumbnails.yayimages.com/1600/11/3b5/113b5fe4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 80vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--primary-50);
+  letter-spacing: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.hero-button {
+  color: var(--primary-50);
+  background-color: var(--primary-900);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
 /* Responsive breakpoints using custom properties */
 @media (max-width: 768px) {
   /* Hide desktop navigation and auth, show hamburger */
@@ -392,8 +439,6 @@ a {
     display: none; /* Hide search facet dropdown on mobile */
   }
 }
-
-
 
 /* Further adjustments for smaller mobile screens */
 @media (max-width: 492px) {
