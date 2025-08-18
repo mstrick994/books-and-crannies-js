@@ -183,7 +183,6 @@ a {
   --z-tooltip: 1070;
   --z-toast: 1080;
   /* ===== COMPONENT-SPECIFIC ===== */
-  --book-card-width: 280px;
   --book-card-aspect: 3/4;
   --search-bar-height: 2.5rem;
   --nav-dropdown-width: 200px;
@@ -210,7 +209,7 @@ a {
 /* Header */
 .header-bar {
   background-color: var(--vintage-cream);
-  padding: var(--space-2) 0; /* Changed to 0 for horizontal padding */
+  padding: 0; /* Changed to 0 for horizontal padding */
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -227,7 +226,7 @@ a {
   justify-content: space-between; /* Keep space-between for main sections */
   gap: var(--space-2);
   height: var(--header-height);
-  padding: 0 var(--space-2);
+  padding: var(--space-3);
 }
 .logo-component {
   flex-shrink: 0; /* Don't shrink the logo */
@@ -240,7 +239,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: clamp(1.2rem, 4vw, 1.8rem); /* Adjusted clamp values */
+  font-size: clamp(1.2rem, 2vw, 1.5rem); /* Adjusted clamp values */
   text-decoration: none;
   line-height: 0.9; /* Adjust line height for stacked text */
 }
@@ -250,6 +249,26 @@ a {
 .logo-component h1 a .bottom-line {
   font-style: italic;
 }
+
+.my-books-btn {
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.my-books-count {
+  position: absolute;
+  top: -6px;
+  right: -12px;
+  background: var(--primary-900);
+  color: var(--primary-50);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
 .dropbtn {
   background: none;
   border: none;
@@ -291,7 +310,7 @@ a {
 .searchbar select,
 .searchbar button,
 .search-bar-submit {
-  height: var(--search-bar-height);
+  height: var();
   border: none;
   vertical-align: middle;
   display: inline-flex;
@@ -319,6 +338,7 @@ a {
   padding: 0 var(--space-1); /* Add padding for better appearance */
   height: var(--search-bar-height); /* Ensure consistent height */
 }
+
 .search-bar-submit {
   width: var(--search-bar-height); /* Keep it square */
   cursor: pointer;
@@ -344,12 +364,18 @@ a {
 }
 
 .btn {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius);
+  padding: var(--space-2);
   font-weight: var(--font-medium);
   text-decoration: none;
   transition: all var(--transition-fast);
   border: var(--border-width) solid transparent;
+}
+
+.primary {
+  background-color: var(--primary-900);
+  padding: 0.4rem 0.8rem;
+  color: var(--primary-50);
+  border-radius: var(--radius-sm);
 }
 
 .mobile-sidebar {
@@ -388,6 +414,7 @@ a {
   align-items: center;
   justify-content: center;
   position: relative;
+  box-shadow: var(--shadow-lg);
 }
 
 .hero-content {
@@ -418,7 +445,372 @@ a {
   z-index: 0;
 }
 
+/* Main Section */
+
+.main-content h2 {
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: var(--text-4xl);
+}
+
+/* From Uiverse.io by eslam-hany */
+
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-4); /*gap in between cards*/
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.book {
+  position: relative;
+  border-radius: 10px;
+  width: 220px;
+  height: 300px;
+  background-color: whitesmoke;
+  -webkit-transform: preserve-3d;
+  -ms-transform: preserve-3d;
+  transform: preserve-3d;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #000;
+}
+
+.inner p {
+  font-size: var(--text-xs);
+}
+
+.cover {
+  top: 0;
+  position: absolute;
+  background-color: lightgray;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.book:hover .cover {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: rotatey(-80deg);
+  -ms-transform: rotatey(-80deg);
+  transform: rotatey(-80deg);
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: .7rem;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  background-color: rgb(245, 242, 209);
+  border-radius: 10px;
+  border: solid;
+  border-color: var(--primary-600);
+  width: 100%;
+  max-width: 250px;
+  max-height: 450px;
+}
+
+.product-card p {
+  font-size: var(--text-sm);
+}
+
+.product-info {
+  margin-top: .5rem;
+  width: 100%;
+  padding: 0 var(--space-1);
+}
+
+.add-btn {
+  font-size: var(--text-xs);
+  margin-top: var(--space-);
+  background-color: var(--primary-700);
+  color: var(--primary-50);
+  border: none;
+  border-radius: var(--radius-sm);
+  margin-top: .5rem;
+  padding: var(--space-1);
+  cursor: pointer;
+  width: 90%;
+  transition: background-color var(--transition-fast);
+}
+
+.read-btn {
+  transition: background-color var(--transition-fast);
+  background-color: var(--primary-700);
+  font-size: var(--text-xs);
+  margin-top: var(--space-1);
+  gap: var(--space-3);
+  cursor: pointer;
+  color: var(--primary-50);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+}
+
+.read-btn:hover,
+.add-btn:hover {
+  background-color: var(--primary-600);
+}
+
+p {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+/* Recommendations */
+
+.rec-sites {
+  background: radial-gradient(
+      circle at center,
+      rgba(123, 97, 255, 0.25) 0%,
+      /* soft purple glow */ rgba(13, 20, 35, 0.95) 60% /* fades to dark navy */
+    ),
+    linear-gradient(
+      135deg,
+      #0d1423 0%,
+      /* deep navy */ #111a2e 100% /* slightly lighter navy */
+    );
+  color: #fff;
+  padding: 2.5rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.rec-sites .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.rec-sites h2 {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  letter-spacing: 0.2px;
+}
+
+/* Fallback grid if JS is off */
+
+.rec-sites-list.no-js {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rec-sites-list.no-js li {
+  background: #17171f;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+.rec-sites-list.no-js img {
+  max-height: 40px;
+  max-width: 160px;
+}
+
+/* Rotating lists*/
+
+.rec-sites .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.rec-sites h2 {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.rec-sites-track {
+  --gap: 18px;
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  border-radius: 14px;
+}
+
+.rec-sites-track .belt {
+  display: flex;
+  gap: var(--gap);
+  padding-block: 8px;
+  animation: scrollBelt 28s linear infinite;
+  will-change: transform;
+}
+.rec-sites-track:hover .belt,
+.rec-sites-track:focus-within .belt {
+  animation-play-state: paused;
+}
+
+@keyframes scrollBelt {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  } /* duplicates for seamless loop */
+}
+
+/* Card uses background-image to ensure cover */
+.rec-card {
+  position: relative;
+  width: 260px; /* adjust for how many you want visible */
+  aspect-ratio: 3 / 2; /* keeps consistent height; tweak as needed */
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: #1a1a22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex: 0 0 auto;
+}
+
+/* Full-bleed image */
+.rec-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.4s ease;
+}
+
+/* Gradient for readability */
+.rec-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.15) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: background 0.2s ease;
+}
+
+.rec-card:hover::before {
+  transform: scale(1.04);
+}
+.rec-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.rec-card .content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px 14px;
+  gap: 6px;
+}
+
+.rec-card .title {
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: 0.98rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.rec-card .meta {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.rec-card:focus {
+  outline: 2px solid #7aa2ff;
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .rec-sites-track .belt {
+    animation: none;
+    flex-wrap: wrap;
+  }
+}
+
+/* Footer */
+
+footer {
+  box-shadow: var(--shadow-lg);
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background-color: var(--vintage-cream);
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-overlay {
+  display: none;
+}
+
 /* Responsive breakpoints using custom properties */
+
 @media (max-width: 768px) {
   /* Hide desktop navigation and auth, show hamburger */
   .nav-search-container .browse-dropdown, /* Target specific dropdown */
@@ -455,8 +847,12 @@ a {
   }
 }
 
-@media (max-width: 492px) {
+@media (max-width: 416px) {
   .searchbar {
     display: none;
+  }
+
+  .search-bar-submit {
+    display: ;
   }
 }

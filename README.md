@@ -37,3 +37,8 @@ This version focuses on frontend skills like layout, interactivity, and working 
 
 ## 🗂 Project Structure
 
+3D Book Card UI
+Base interaction inspired by a community snippet from Uiverse.io (author: eslam-hany).
+I adapted it for semantic markup (<article>), swapped the front cover to use a book image, added an inner details panel, and tweaked responsiveness/accessibility (keyboard :focus-within).
+This component is used as a visual enhancement; filtering, state, and DOM updates are my own implementation.
+

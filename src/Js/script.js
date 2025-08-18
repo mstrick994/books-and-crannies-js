@@ -99,3 +99,107 @@ const books = [
     link: "https://openlibrary.org/works/OL29983W/Little_Women?edition=key:/books/OL21516677M",
   }
 ];
+
+
+const recSites = [
+  {
+    label: 'Project Gutenberg',
+    url: 'https://www.gutenberg.org',
+    img: 'src/photos/recommended-sites/gutenberg.jpg',    // your local image
+    meta: 'Classics • ePub/Kindle'
+  },
+  {
+    label: 'Open Library',
+    url: 'https://openlibrary.org',
+    img: 'src/photos/recommended-sites/openlibrary.png',
+    meta: 'Borrow & Read Online'
+  },
+  {
+    label: 'Libby / OverDrive',
+    url: 'https://libbyapp.com',
+    img: 'src/photos/recommended-sites/libby.jpg',
+    meta: 'Library card required'
+  },
+  {
+    label: 'Wikisource',
+    url: 'https://wikisource.org',
+    img: 'src/photos/recommended-sites/wikisource.jpg',
+    meta: 'Free public-domain texts'
+  },
+  {
+    label: 'Google Books',
+    url: 'https://books.google.com',
+    img: 'src/photos/recommended-sites/google-books.png',
+    meta: 'Previews + full PD books'
+  },
+  {
+    label: 'Wattpad',
+    url: 'https://wattpad.com',
+    img: 'src/photos/recommended-sites/wattpad.jpg',
+    meta: 'Original stories'
+  },
+  {
+    label: 'LibriVox',
+    url: 'https://librivox.org',
+    img: 'src/photos/recommended-sites/librivox.jpg',
+    meta: 'Free audiobooks'
+  },
+];
+
+(function init(){
+  const track = document.querySelector('.rec-sites-track[data-rotating]');
+  if (!track) return;
+
+  const belt = document.createElement('div');
+  belt.className = 'belt';
+
+  const makeCard = (site)=> {
+    const a = document.createElement('a');
+    a.className = 'rec-card';
+    a.href = site.url; a.target = '_blank'; a.rel = 'noopener';
+    a.setAttribute('aria-label', site.label);
+
+    // background image on ::before via style
+    a.style.setProperty('--bg', `url("${site.img}")`);
+    a.addEventListener('mouseenter', ()=>{}); // keeps :hover available
+
+    // inject the bg into ::before using CSS var
+    // (we’ll map it in a small style block below)
+
+    const c = document.createElement('div');
+    c.className = 'content';
+
+    const t = document.createElement('div');
+    t.className = 'title';
+    t.textContent = site.label;
+
+    const m = document.createElement('div');
+    m.className = 'meta';
+    m.textContent = site.meta || '';
+
+    c.append(t, m);
+    a.append(c);
+    return a;
+  };
+
+  recSites.forEach(s => belt.appendChild(makeCard(s)));
+  recSites.forEach(s => belt.appendChild(makeCard(s))); // duplicate for loop
+
+  track.appendChild(belt);
+
+  // apply the CSS var -> background-image bridge
+  const style = document.createElement('style');
+  style.textContent = `.rec-card::before{ background-image: var(--bg); }`;
+  document.head.appendChild(style);
+
+  // fallback for reduced motion: show as simple grid
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    track.innerHTML = '';
+    track.style.maskImage = track.style.webkitMaskImage = 'none';
+    track.appendChild(belt);
+    belt.style.animation = 'none';
+    belt.style.flexWrap = 'wrap';
+    belt.style.justifyContent = 'center';
+  }
+})();
+
