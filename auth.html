@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="gradient-bg">
+  <body class="gradient-bg auth-page">
     <!-- HEADER -->
     <header class="header-bar">
       <div class="wrapper header-wrapper">
@@ -115,20 +115,7 @@
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="overlay"></div>
-      <div class="hero-overlay">
-        <div class="hero-content">
-          <h1>Discover the Magic of Classic Books</h1>
-          <p>
-            Browse and dive into our handpicked collection <br />
-            of timeless literature.
-          </p>
-          <a href="#book-section" class="hero-button">Explore Our Selections</a>
-        </div>
-      </div>
-    </section>
+  
 
     <!-- MOBILE SIDEBAR -->
     <aside class="mobile-sidebar">
@@ -236,98 +223,91 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="main">
-      <div class="wrapper">
-        <div class="main-content">
-          <h2 class="main-title">Books to Read</h2>
-          <article class="product-cards">
-            <!-- From Uiverse.io by eslam-hany -->
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
+    <!-- Sign Up -->
+     <h2 class="form-header">Sign-Up</h2>
+    <main>
+      <section class="form-container">
+        <div class="form-wrapper">
+          <form id="form">
+            <!-- Name Field Row -->
+            <section class="form-row name-field">
+              <div class="field-group">
+                <label for="userName">Username</label>
+                <input type="text" id="userName" name="userName" />
+                <small id="userNameError" class="error-message"></small>
               </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-              <button>Read Online</button>
-            </div>
+            </section>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
+            <!-- DOB and Email Row -->
+            <section class="form-row birthdate-email">
+              <div class="field-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" />
+                <small id="dobError" class="error-message"></small>
               </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
+              <div class="field-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" />
+                <small id="emailError" class="error-message"></small>
               </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
+            </section>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
+            <!-- Password Row -->
+            <section class="form-row password-section">
+              <div class="field-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" />
+                <small id="passwordError" class="error-message"></small>
               </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
+              <div class="field-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                />
+                <small id="confirmError" class="error-message"></small>
               </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
+            </section>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-            <!-- JS will populate book cards here -->
-          </article>
+            <!-- Submit Button -->
+            <button id="submitBtn" type="submit" name="submitBtn" disabled>
+              Submit
+            </button>
+          </form>
         </div>
-      </div>
+      </section>
     </main>
+
+        <!-- Login Form (hidden by default) -->
+       <h2 class="form-header"  style="display: none;">Login</h2>
+        <section class="form-container"  style="display: none;">
+          <div class="form-wrapper">
+          <form id="loginForm">
+          <div class="field-group">
+                <label for="userName">Username</label>
+                <input type="text" id="userName" name="userName" />
+                <small id="userNameError" class="error-message"></small>
+              </div>
+          <!-- Password Row -->
+            <section class="form-row password-section">
+              <div class="field-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" />
+                <small id="passwordError" class="error-message"></small>
+              </div>
+        </section>
+
+           <!-- Submit Button -->
+            <button id="submitBtn" type="submit" name="submitBtn" disabled>
+              Submit
+            </button>
+          </form>
+          </div>
+          </section>
+          
 
     <!-- FOOTER -->
     <footer class="footer">

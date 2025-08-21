@@ -14,8 +14,9 @@
       rel="stylesheet"
     />
   </head>
-  <body class="gradient-bg">
-    <!-- HEADER -->
+  <body class="gradient-bg my-list-page">
+    <div class="page-wrapper">
+  <!-- HEADER -->
     <header class="header-bar">
       <div class="wrapper header-wrapper">
         <!-- Logo -->
@@ -114,20 +115,6 @@
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="overlay"></div>
-      <div class="hero-overlay">
-        <div class="hero-content">
-          <h1>Discover the Magic of Classic Books</h1>
-          <p>
-            Browse and dive into our handpicked collection <br />
-            of timeless literature.
-          </p>
-          <a href="#book-section" class="hero-button">Explore Our Selections</a>
-        </div>
-      </div>
-    </section>
 
     <!-- MOBILE SIDEBAR -->
     <aside class="mobile-sidebar">
@@ -239,89 +226,16 @@
     <main class="main">
       <div class="wrapper">
         <div class="main-content">
-          <h2 class="main-title">Books to Read</h2>
-          <article class="product-cards">
+          <h2 class="main-title">My Book Shelf</h2>
+
+          <!-- Empty State -->
+           <section class="empty-message" id="emptyMessage">
+            <p>No books to display</p>
+           </section>
+           <!-- Saved Books -->
+          <article class="my-books product-cards" id="myBooks">
             <!-- From Uiverse.io by eslam-hany -->
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-              <button>Read Online</button>
-            </div>
 
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
-
-            <div class="book">
-              <div class="inner">
-                <p>About text goes here…</p>
-                <!-- buttons, author, etc. -->
-              </div>
-              <div class="cover">
-                <p>Hover Me</p>
-              </div>
-            </div>
             <!-- JS will populate book cards here -->
           </article>
         </div>
@@ -374,7 +288,7 @@
     </footer>
 
     <!-- BOOK MODAL -->
-    <div class="modal-overlay hidden" id="bookModal">
+    <div class="modal-overlay hidden" id="bookModal" style="display: none;">
       <div class="modal-content">
         <span class="close-button" id="closeModal">&times;</span>
         <img id="modalImage" alt="Book cover" />
@@ -386,6 +300,8 @@
         </div>
       </div>
     </div>
+    </div>
+  
 
     <!--  MAIN JS -->
     <script src="./src/Js/script.js"></script>

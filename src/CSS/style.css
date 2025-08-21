@@ -204,7 +204,14 @@ a {
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: var(--font-family-serif);
-  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+h1,
+h2 {
+  color: var(--primary-900);
+  font-size: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 /* Header */
 .header-bar {
@@ -532,7 +539,7 @@ a {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: .7rem;
+  padding: 0.7rem;
   -webkit-box-shadow: 1px 1px 12px #000;
   box-shadow: 1px 1px 12px #000;
   background-color: rgb(245, 242, 209);
@@ -549,7 +556,7 @@ a {
 }
 
 .product-info {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   width: 100%;
   padding: 0 var(--space-1);
 }
@@ -561,7 +568,7 @@ a {
   color: var(--primary-50);
   border: none;
   border-radius: var(--radius-sm);
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   padding: var(--space-1);
   cursor: pointer;
   width: 90%;
@@ -777,10 +784,197 @@ p {
   }
 }
 
+/* Auth Sign Up / Login */
+
+.auth-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* fill the space between header and footer */
+.auth-page .auth-main {
+  flex: 1;
+  display: grid;
+  place-items: center; /* centers the form */
+  padding: var(--space-6) var(--space-3);
+}
+
+.form-header {
+  color: var(--primary-900);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+/* Container and wrapper */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 600px; /* Increased to accommodate side-by-side fields */
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+}
+
+/* Form styles */
+#form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.auth-page .footer {
+  margin-top: 4rem;
+  max-width: 100vw;
+  width: 100%;
+}
+
+/* Create field groups by targeting every 3 elements (label, input, error) */
+.name-field,
+.birthdate-email,
+.password-section {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Create field wrappers */
+.field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input group styling */
+.form-container label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.form-container input {
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  margin-bottom: 5px;
+}
+
+.form-container input:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Input states */
+.form-container input.valid {
+  border-color: #28a745;
+  background-color: #f8fff9;
+}
+
+.form-container input.invalid {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
+
+/* Error borders and messages */
+
+/* Red border for invalid input */
+.error-border {
+  border: 2px solid #e74c3c; /* Red */
+  background-color: #fff6f6; /* Optional soft red tint */
+}
+
+/* Green border for valid input */
+.success-border {
+  border: 2px solid #28a745; /* Green */
+  background-color: #f8fff9; /* Optional soft green tint */
+}
+
+/* Error messages */
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  min-height: 20px;
+  display: none;
+}
+
+/* Show error text */
+.error-message.show {
+  display: block;
+}
+
+/* Submit button */
+#submitBtn {
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#submitBtn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* My List */
+
+.my-list-page .page-wrapper {
+  min-height: 100vh;        /* full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.my-list-page .main {
+  flex: 1;                  /* expand to push footer down */
+}
+
+.my-list-page .footer {
+  margin-top: auto;         /* sticks footer at bottom */
+}
+
+
+
+.my-list-page .page-title { text-align:center; margin-top: var(--space-4); }
+.empty-message { 
+  text-align: center; 
+  margin: var(--space-6) 0; 
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+
 /* Footer */
 
 footer {
   box-shadow: var(--shadow-lg);
+  margin-top: auto;
 }
 
 .footer ul {
@@ -830,6 +1024,43 @@ footer {
   .search-by-dropdown {
     display: none; /* Hide search facet dropdown on mobile */
   }
+
+  /* Auth */
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .wrapper {
+    padding: 30px 20px;
+    max-width: 90%;
+    margin-bottom: auto;
+  }
+
+  .form-header {
+    font-size: 2rem;
+  }
+}
+/* Success state for form */
+.form-success {
+  border: 2px solid #28a745;
+  background-color: #f8fff9;
+}
+
+/* Animation for error messages */
+.error-message.show {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Further adjustments for smaller mobile screens */
@@ -850,9 +1081,5 @@ footer {
 @media (max-width: 416px) {
   .searchbar {
     display: none;
-  }
-
-  .search-bar-submit {
-    display: ;
   }
 }
