@@ -1,4 +1,7 @@
-
+const sidebar = document.getElementById("sidebar");
+const hamburgerMenu = document.getElementById("hamburgerMenu");
+const closeBtn = document.getElementById("closeBtn");
+const sidebarBackdrop = document.getElementById("sidebarBackdrop");
 
 
 const books = [
@@ -145,6 +148,39 @@ const recSites = [
     meta: 'Free audiobooks'
   },
 ];
+
+
+// Mobile Sidebar Toggle
+
+const openSidebar = () => {
+  // flip sidebar + backdrop visibility
+  sidebar.classList.toggle('is-open');
+  sidebarBackdrop.classList.toggle('is-on');
+
+  // check the new state to see if sidebar is on screen or not
+  const isOpen = sidebar.classList.contains('is-open');
+
+  // lock or unlock page scrolling based on sidebar state
+  document.body.style.overflow = isOpen ? "hidden"  : ''; // ('') means to set the styling to be cleared
+
+
+  // sync hamburger visuals + accessibility
+  hamburgerMenu.classList.toggle('is-active', isOpen);
+  hamburgerMenu.setAttribute('aria-expanded', String(isOpen));
+};
+
+
+ hamburgerMenu.addEventListener("click", openSidebar);
+
+ 
+
+
+
+
+
+
+
+
 
 (function init(){
   const track = document.querySelector('.rec-sites-track[data-rotating]');

@@ -97,11 +97,14 @@
 
         <!-- Auth Links -->
         <ul class="auth-component">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
+          <li class="login"><a href="auth.html" class="btn">Login</a></li>
+          <li><a href="auth.html" class="btn primary">Sign Up</a></li>
         </ul>
 
-        <!-- Hamburger Menu -->
+        
+      </div>
+    </header>
+    <!-- Hamburger Menu -->
         <button
           class="hamburger-menu"
           id="hamburgerMenu"
@@ -111,15 +114,13 @@
           <span></span>
           <span></span>
         </button>
-      </div>
-    </header>
 
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="overlay"></div>
       <div class="hero-overlay">
         <div class="hero-content">
-          <h1>Discover the Magic of Classic Books</h1>
+          <h2 class="hero-header">Discover the Magic of Classic Books</h2>
           <p>
             Browse and dive into our handpicked collection <br />
             of timeless literature.
@@ -130,119 +131,88 @@
     </section>
 
     <!-- MOBILE SIDEBAR -->
-    <aside class="mobile-sidebar">
-      <div class="wrapper header-wrapper">
-        <!-- Logo -->
-        <div class="logo-component">
-          <h1>
-            <a href="/index.html">
-              <span class="top-line">Books &</span>
-              <span class="bottom-line">Crannies</span>
-            </a>
-          </h1>
+    <aside id="sidebar" class="mobile-sidebar" aria-labelledby="sidebarTitle">
+      <header class="drawer-header">
+        <h2 id="sidebarTitle">My Library</h2>
+
+        <div class="auth-actions">
+          <a href="auth.html" class="btn btn-outline">Log In</a>
+          <a href="auth.html" class="btn btn-primary">Sign Up</a>
         </div>
+<div class="sidebar-searchbar">
+  <form class="sidebar-search-form" action="/search" method="get">
+    <label for="sidebarSearchBy" class="sidebar-search-label">Search by:</label>
+    <select
+      class="sidebar-search-dropdown"
+      aria-label="Search by"
+      id="sidebarSearchBy"
+      name="searchBy"
+    >
+      <option value="all">All</option>
+      <option value="title">Title</option>
+      <option value="author">Author</option>
+      <option value="trending">Trending</option>
+      <option value="price">Price</option>
+      <option value="best-sellers">Best Sellers</option>
+    </select>
+    <input
+      type="text"
+      name="q"
+      class="sidebar-search-input"
+      placeholder="Search books…"
+      aria-label="Search"
+    />
+    <button type="submit" class="sidebar-search-btn" aria-label="Search">
+      Enter
+    </button>
+  </form>
+  <div class="sidebar-search-results">
+    <ul>
+      <!-- JS will inject live search results here -->
+    </ul>
+  </div>
+</div>
+      </header>
 
-        <div class="nav-search-container">
-          <!-- My Books Collection -->
-          <div class="my-books-component">
-            <section class="my-books">
-              <button class="my-books-btn">
-                <a href="my-list.html">My Books</a>
-                <span class="my-books-count" id="myBooksCount">0</span>
-              </button>
-            </section>
-          </div>
-          <!-- Navigation Dropdown -->
-          <div class="navigation-component">
-            <section class="browse-dropdown">
-              <button class="dropbtn" id="browseBtnMobile">Browse</button>
-              <div id="browseDropdownMobile" class="dropdown-content">
-                <ul class="book-genres" id="bookGenresMobile">
-                  <!-- JS will inject <li> genre links here -->
-                </ul>
-              </div>
-            </section>
-          </div>
+      <div class="drawer-scroll">
+        <nav class="drawer-section" aria-label="Browse">
+          <h3 class="section-title">Browse</h3>
+          <ul class="drawer-list">
+            <li><a href="#">Subjects</a></li>
+            <li><a href="#">Trending</a></li>
+            <li><a href="#">Library Explorer</a></li>
+            <li><a href="#">Lists</a></li>
+            <li>
+                <a class="mobile my-books-btn" href="my-list.html">My Books
+                  <span class="mobile my-books-count" id="myBooksCountMobile">0</span>
+                </a>
+                
+            </li>
+            <li><a href="#">Random Book</a></li>
+            <li><a href="#">Advanced Search</a></li>
+          </ul>
+        </nav>
 
-          <!-- Search Bar -->
-          <div class="search-component">
-            <div class="searchbar-component">
-              <div class="searchbar">
-                <div class="search-facet">
-                  <label class="search-facet-selector">
-                    <span class="search-facet-value" aria-hidden="true"></span>
-                    <select
-                      class="search-by-dropdown"
-                      aria-label="Search by"
-                      id="searchByMobile"
-                    >
-                      <option value="all">All</option>
-                      <option value="title">Title</option>
-                      <option value="trending">Trending</option>
-                      <option value="author">Author</option>
-                      <option value="price">Price</option>
-                      <option value="best-sellers">Best Sellers</option>
-                    </select>
-                  </label>
-                </div>
-                <form
-                  class="searchbar-input"
-                  id="searchFormMobile"
-                  action="/search"
-                  method="get"
-                >
-                  <input
-                    type="text"
-                    name="q"
-                    placeholder="Search"
-                    aria-label="search"
-                    id="searchInputMobile"
-                  />
-                  <input
-                    class="search-bar-submit"
-                    type="submit"
-                    value=""
-                    aria-label="Search submit"
-                    id="searchSubmitMobile"
-                  />
-                </form>
-              </div>
-              <div class="search-dropdown" id="searchDropdownMobile">
-                <ul class="search-results" id="searchResultsMobile">
-                  <!-- JS will inject live search results here -->
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Auth Links -->
-        <ul class="auth-component" id="authLinksMobile">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
-        </ul>
-
-        <!-- Hamburger Menu -->
-        <button
-          class="hamburger-menu"
-          id="hamburgerMenuMobile"
-          aria-label="Open menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <nav class="drawer-section" aria-label="Contribute">
+          <h3 class="section-title">Contribute</h3>
+          <ul class="drawer-list">
+            <li><a href="#">Add a Book</a></li>
+            <li><a href="#">…</a></li>
+          </ul>
+        </nav>
       </div>
     </aside>
 
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
     <!-- MAIN CONTENT -->
     <main class="main">
-      <div class="wrapper">
+      <div class="wrapper main-wrapper">
         <div class="main-content">
           <h2 class="main-title">Books to Read</h2>
           <article class="product-cards">
             <!-- From Uiverse.io by eslam-hany -->
-             <div class="product-card">
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -254,13 +224,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -272,13 +247,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -290,13 +270,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -308,13 +293,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -326,13 +316,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -344,13 +339,18 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
-            </div> <div class="product-card">
+            </div>
+            <div class="product-card">
               <div class="book">
                 <div class="inner">
                   <p>About text goes here…</p>
@@ -362,10 +362,14 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
             </div>
@@ -382,10 +386,14 @@
                 <button class="read-btn">Read Online</button>
               </div>
               <div class="product-info">
-                <p class="card-title">Title:</p><span class="title-value" id="title"></span>
-                <p class="card-author">Author:</p><span class="author-value" id="author"></span>
-                  <p class="card-genre">Genre:</p><span class="genre-value" id="genre"></span> 
-                <p class="card-price">Price:</p><span class="price-value" id="price"></span>
+                <p class="card-title">Title:</p>
+                <span class="title-value" id="title"></span>
+                <p class="card-author">Author:</p>
+                <span class="author-value" id="author"></span>
+                <p class="card-genre">Genre:</p>
+                <span class="genre-value" id="genre"></span>
+                <p class="card-price">Price:</p>
+                <span class="price-value" id="price"></span>
               </div>
               <button class="add-btn">Add to Collection</button>
             </div>
@@ -399,7 +407,9 @@
 
     <section class="rec-sites" aria-labelledby="rec-sites-title">
       <div class="container">
-        <h2 id="rec-sites-title">Read Free Books — Recommended Sites</h2>
+        <h2 class="rec-sites-title" id="rec-sites-title">
+          Read Free Books — Recommended Sites
+        </h2>
         <div class="rec-sites-track" data-rotating></div>
       </div>
     </section>
@@ -449,8 +459,11 @@
       </div>
     </footer>
 
+    <!-- SIDEBAR MODAL -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <!-- BOOK MODAL -->
-    <div class="modal-overlay hidden" id="bookModal">
+    <div class="overlay modal-overlay hidden" id="bookModal">
       <div class="modal-content">
         <span class="close-button" id="closeModal">&times;</span>
         <img id="modalImage" alt="Book cover" />
