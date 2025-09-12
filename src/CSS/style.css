@@ -455,7 +455,7 @@ h2 {
   flex-direction: column;
   transition: right 300ms ease;
   z-index: 1030;
-  overflow: scroll;
+  overflow-y: auto;
 }
 .mobile-sidebar.is-open {
   right: 0;
@@ -555,10 +555,6 @@ h2 {
   right: 270px;
 }
 
-.drawer-scroll {
-  overflow-y: auto;
-  padding-block: 8px;
-}
 
 .drawer-section {
   margin-top: 10px;

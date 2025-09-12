@@ -172,6 +172,19 @@ const openSidebar = () => {
 
  hamburgerMenu.addEventListener("click", openSidebar);
 
+sidebarBackdrop.addEventListener('click', () => {
+  // close the panel
+  sidebar.classList.remove('is-open');
+  sidebarBackdrop.classList.remove('is-on');
+
+  // reset hamburger visuals + a11y
+  hamburgerMenu.classList.remove('is-active');        // turn X back to hamburger
+  hamburgerMenu.setAttribute('aria-expanded', 'false');
+
+  // unlock page scroll
+  document.body.style.overflow = '';
+});
+
  
 
 
