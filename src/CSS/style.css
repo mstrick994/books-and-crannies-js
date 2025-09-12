@@ -221,6 +221,7 @@ h2 {
   position: sticky;
   top: 0;
   z-index: 1100;
+  height: 4rem;
 }
 .wrapper {
   max-width: var(--max-width);
@@ -445,10 +446,10 @@ h2 {
 
 .mobile-sidebar {
   position: fixed;
-  top: 0;
+  top: 4rem; /* sits below header */
   right: -100%;
   width: clamp(280px, 80vw, 380px);
-  height: 100dvh;
+  height: calc(100dvh - 4rem); /* fills below header */
   background: var(--vintage-cream);
   display: flex;
   flex-direction: column;
@@ -1216,19 +1217,25 @@ footer {
 
 @media (max-width: 768px) {
   /* Hide desktop navigation and auth, show hamburger */
-  .nav-search-container .browse-dropdown, /* Target specific dropdown */
+   .browse-dropdown, /* Target specific dropdown */
   .auth-component {
     display: none;
   }
+  .nav-search-container {
+    justify-content: flex-start; /* Align search to the right */
+  }
+  .search-component {
+    max-width: 50vw; /* or 100vw for full width */
+    width: 100%;     /* ensures it stretches */
+    min-width: 0;    /* allows shrinking */
+  }
+
+
   .hamburger-menu {
     display: flex;
   }
 
-  /* Adjust search component for smaller screens */
-  .search-component {
-    max-width: 300px; /* Allow it to be a bit wider on tablets */
-    min-width: 150px; /* Ensure it doesn't get too small */
-  }
+
 
   .search-by-dropdown {
     display: none; /* Hide search facet dropdown on mobile */
