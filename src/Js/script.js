@@ -2,8 +2,9 @@ const sidebar = document.getElementById("sidebar");
 const hamburgerMenu = document.getElementById("hamburgerMenu");
 const closeBtn = document.getElementById("closeBtn");
 const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+const recList = document.getElementById("recList");
 
-
+// Book Data
 const books = [
   {
     title: "The Great Gatsby",
@@ -152,7 +153,7 @@ const recSites = [
 
 // Mobile Sidebar Toggle
 
-const openSidebar = () => {
+const toggleSidebar = () => {
   // flip sidebar + backdrop visibility
   sidebar.classList.toggle('is-open');
   sidebarBackdrop.classList.toggle('is-on');
@@ -170,7 +171,7 @@ const openSidebar = () => {
 };
 
 
- hamburgerMenu.addEventListener("click", openSidebar);
+ hamburgerMenu.addEventListener("click", toggleSidebar);
 
 sidebarBackdrop.addEventListener('click', () => {
   // close the panel
@@ -187,6 +188,10 @@ sidebarBackdrop.addEventListener('click', () => {
 
  
 
+// === Recommended Sites Ticker ===
+const createTickerItem = (site) => {
+  
+}
 
 
 
@@ -194,61 +199,60 @@ sidebarBackdrop.addEventListener('click', () => {
 
 
 
+// (function init(){
+//   const track = document.querySelector('.rec-sites-track[data-rotating]');
+//   if (!track) return;
 
-(function init(){
-  const track = document.querySelector('.rec-sites-track[data-rotating]');
-  if (!track) return;
+//   const belt = document.createElement('div');
+//   belt.className = 'belt';
 
-  const belt = document.createElement('div');
-  belt.className = 'belt';
+//   const makeCard = (site)=> {
+//     const a = document.createElement('a');
+//     a.className = 'rec-card';
+//     a.href = site.url; a.target = '_blank'; a.rel = 'noopener';
+//     a.setAttribute('aria-label', site.label);
 
-  const makeCard = (site)=> {
-    const a = document.createElement('a');
-    a.className = 'rec-card';
-    a.href = site.url; a.target = '_blank'; a.rel = 'noopener';
-    a.setAttribute('aria-label', site.label);
+//     // background image on ::before via style
+//     a.style.setProperty('--bg', `url("${site.img}")`);
+//     a.addEventListener('mouseenter', ()=>{}); // keeps :hover available
 
-    // background image on ::before via style
-    a.style.setProperty('--bg', `url("${site.img}")`);
-    a.addEventListener('mouseenter', ()=>{}); // keeps :hover available
+//     // inject the bg into ::before using CSS var
+//     // (we’ll map it in a small style block below)
 
-    // inject the bg into ::before using CSS var
-    // (we’ll map it in a small style block below)
+//     const c = document.createElement('div');
+//     c.className = 'content';
 
-    const c = document.createElement('div');
-    c.className = 'content';
+//     const t = document.createElement('div');
+//     t.className = 'title';
+//     t.textContent = site.label;
 
-    const t = document.createElement('div');
-    t.className = 'title';
-    t.textContent = site.label;
+//     const m = document.createElement('div');
+//     m.className = 'meta';
+//     m.textContent = site.meta || '';
 
-    const m = document.createElement('div');
-    m.className = 'meta';
-    m.textContent = site.meta || '';
+//     c.append(t, m);
+//     a.append(c);
+//     return a;
+//   };
 
-    c.append(t, m);
-    a.append(c);
-    return a;
-  };
+//   recSites.forEach(s => belt.appendChild(makeCard(s)));
+//   recSites.forEach(s => belt.appendChild(makeCard(s))); // duplicate for loop
 
-  recSites.forEach(s => belt.appendChild(makeCard(s)));
-  recSites.forEach(s => belt.appendChild(makeCard(s))); // duplicate for loop
+//   track.appendChild(belt);
 
-  track.appendChild(belt);
+//   // apply the CSS var -> background-image bridge
+//   const style = document.createElement('style');
+//   style.textContent = `.rec-card::before{ background-image: var(--bg); }`;
+//   document.head.appendChild(style);
 
-  // apply the CSS var -> background-image bridge
-  const style = document.createElement('style');
-  style.textContent = `.rec-card::before{ background-image: var(--bg); }`;
-  document.head.appendChild(style);
-
-  // fallback for reduced motion: show as simple grid
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    track.innerHTML = '';
-    track.style.maskImage = track.style.webkitMaskImage = 'none';
-    track.appendChild(belt);
-    belt.style.animation = 'none';
-    belt.style.flexWrap = 'wrap';
-    belt.style.justifyContent = 'center';
-  }
-})();
+//   // fallback for reduced motion: show as simple grid
+//   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+//     track.innerHTML = '';
+//     track.style.maskImage = track.style.webkitMaskImage = 'none';
+//     track.appendChild(belt);
+//     belt.style.animation = 'none';
+//     belt.style.flexWrap = 'wrap';
+//     belt.style.justifyContent = 'center';
+//   }
+// })();
 

@@ -100,21 +100,14 @@
           <li class="login"><a href="auth.html" class="btn">Login</a></li>
           <li><a href="auth.html" class="btn primary">Sign Up</a></li>
         </ul>
-
-        
       </div>
-        <!-- Hamburger Menu -->
-        <button
-          class="hamburger-menu"
-          id="hamburgerMenu"
-          aria-label="Open menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+      <!-- Hamburger Menu -->
+      <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
-
 
     <!-- Hero Section -->
     <section class="hero-section">
@@ -139,39 +132,45 @@
           <a href="auth.html" class="btn btn-outline">Log In</a>
           <a href="auth.html" class="btn btn-primary">Sign Up</a>
         </div>
-<div class="sidebar-searchbar">
-  <form class="sidebar-search-form" action="/search" method="get">
-    <label for="sidebarSearchBy" class="sidebar-search-label">Search by:</label>
-    <select
-      class="sidebar-search-dropdown"
-      aria-label="Search by"
-      id="sidebarSearchBy"
-      name="searchBy"
-    >
-      <option value="all">All</option>
-      <option value="title">Title</option>
-      <option value="author">Author</option>
-      <option value="trending">Trending</option>
-      <option value="price">Price</option>
-      <option value="best-sellers">Best Sellers</option>
-    </select>
-    <input
-      type="text"
-      name="q"
-      class="sidebar-search-input"
-      placeholder="Search books…"
-      aria-label="Search"
-    />
-    <button type="submit" class="sidebar-search-btn" aria-label="Search">
-      Enter
-    </button>
-  </form>
-  <div class="sidebar-search-results">
-    <ul>
-      <!-- JS will inject live search results here -->
-    </ul>
-  </div>
-</div>
+        <div class="sidebar-searchbar">
+          <form class="sidebar-search-form" action="/search" method="get">
+            <label for="sidebarSearchBy" class="sidebar-search-label"
+              >Search by:</label
+            >
+            <select
+              class="sidebar-search-dropdown"
+              aria-label="Search by"
+              id="sidebarSearchBy"
+              name="searchBy"
+            >
+              <option value="all">All</option>
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+              <option value="trending">Trending</option>
+              <option value="price">Price</option>
+              <option value="best-sellers">Best Sellers</option>
+            </select>
+            <input
+              type="text"
+              name="q"
+              class="sidebar-search-input"
+              placeholder="Search books…"
+              aria-label="Search"
+            />
+            <button
+              type="submit"
+              class="sidebar-search-btn"
+              aria-label="Search"
+            >
+              Enter
+            </button>
+          </form>
+          <div class="sidebar-search-results">
+            <ul>
+              <!-- JS will inject live search results here -->
+            </ul>
+          </div>
+        </div>
       </header>
 
       <div class="drawer-scroll">
@@ -183,10 +182,12 @@
             <li><a href="#">Library Explorer</a></li>
             <li><a href="#">Lists</a></li>
             <li>
-                <a class="mobile my-books-btn" href="my-list.html">My Books
-                  <span class="mobile my-books-count" id="myBooksCountMobile">0</span>
-                </a>
-                
+              <a class="mobile my-books-btn" href="my-list.html"
+                >My Books
+                <span class="mobile my-books-count" id="myBooksCountMobile"
+                  >0</span
+                >
+              </a>
             </li>
             <li><a href="#">Random Book</a></li>
             <li><a href="#">Advanced Search</a></li>
@@ -410,7 +411,264 @@
         <h2 class="rec-sites-title" id="rec-sites-title">
           Read Free Books — Recommended Sites
         </h2>
-        <div class="rec-sites-track" data-rotating></div>
+        <div class="rec-sites-ticker" data-rotating>
+          <ul class="rec-sites-list" id="recList">
+            <li class="group">
+              <a
+                class="rec-card"
+                href="https://books.google.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/google-books.png"
+                    alt="Google Books logo"
+                  />
+                  <div class="rec-overlay">
+                    <p class="meta"></p>
+                    <h3 class="title">Google Books</h3>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://openlibrary.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/openlibrary.png"
+                    alt="Open Library logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Project Gutenberg</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://www.gutenberg.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/gutenberg.jpg"
+                    alt="Gutenberg logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Project Gutenberg</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://libbyapp.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/libby.jpg"
+                    alt="Libby logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Libby / OverDrive</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://wikisource.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/wikisource.jpg"
+                    alt="Wikisource logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Wikisource</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://wattpad.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/wattpad.jpg"
+                    alt="Wattpad logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Wattpad</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://librivox.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/librivox.jpg"
+                    alt="LibriVox logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">LibriVox</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="group" aria-hidden="true">
+              <a
+                class="rec-card"
+                href="https://books.google.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/google-books.png"
+                    alt="Google Books logo"
+                  />
+                  <div class="rec-overlay">
+                    <p class="meta"></p>
+                    <h3 class="title">Google Books</h3>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://openlibrary.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/openlibrary.png"
+                    alt="Open Library logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Project Gutenberg</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://www.gutenberg.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/gutenberg.jpg"
+                    alt="Gutenberg logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Project Gutenberg</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://libbyapp.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/libby.jpg"
+                    alt="Libby logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Libby / OverDrive</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://wikisource.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/wikisource.jpg"
+                    alt="Wikisource logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Wikisource</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://wattpad.com"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/wattpad.jpg"
+                    alt="Wattpad logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">Wattpad</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                class="rec-card"
+                href="https://librivox.org"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="content">
+                  <img
+                    src="/src/Photos/recommended-sites/librivox.jpg"
+                    alt="LibriVox logo"
+                  />
+                  <div class="rec-overlay">
+                    <h3 class="title">LibriVox</h3>
+                    <p class="meta"></p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
