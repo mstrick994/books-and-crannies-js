@@ -852,7 +852,7 @@ p {
   gap: 2rem;
   padding-right: 2rem;
 
-   animation: scrollBelt 35s linear infinite;
+   animation: scrollBelt 45s linear infinite;
 }
 
 
@@ -869,8 +869,8 @@ p {
 
 
 
-.rec-sites-ticker:hover .group,
-.rec-sites-ticker:focus-within .group {
+.rec-sites-ticker:hover .group
+ {
   animation-play-state: paused;
 }
 
@@ -908,11 +908,27 @@ p {
   gap: 6px;
 }
 
+/* Gradient overlay + text box pinned to the bottom */
+.rec-overlay {
+  position: absolute;
+  inset: 0;                   /* cover the whole card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* push title up, meta down */
+  padding: 12px 14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.35) 10%,
+    rgba(0,0,0,0) 80%
+  );
+}
+
 .rec-card .title {
-  color: #fff;
+   text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+  color: var(--primary-50);
   font-weight: 700;
   line-height: 1.2;
-  font-size: 0.98rem;
+  font-size: 1.3rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
