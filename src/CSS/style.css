@@ -26,6 +26,9 @@ body {
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
+html{
+  scroll-behavior: smooth;
+}
 html,
 body {
   height: 100vh;
