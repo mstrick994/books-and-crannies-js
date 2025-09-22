@@ -811,10 +811,8 @@ h2 {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* height: 100%; */
   width: 100%;
   max-width: 100%;
-  /* max-height: 450px; */
   padding: 0.7rem;
   box-shadow: 1px 1px 12px #000;
   background-color: rgb(245, 242, 209);
@@ -851,17 +849,14 @@ h2 {
 }
 
 .product-info span {
-  font-size: var(--text-sm);
-  color: var(--color-text-primary);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: var(--font-medium);
   margin: 0;
   text-align: left;
+  color: black;
 }
 
-.product-info span {
-  font-size: var(--text-xl);
- color: black;
-}
+
 
 .add-btn {
   font-size: var(--text-xs);
