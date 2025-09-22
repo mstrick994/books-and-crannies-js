@@ -1,8 +1,12 @@
 const sidebar = document.getElementById("sidebar");
 const hamburgerMenu = document.getElementById("hamburgerMenu");
-const closeBtn = document.getElementById("closeBtn");
 const sidebarBackdrop = document.getElementById("sidebarBackdrop");
 const productCards = document.getElementById("productCards");
+const dropBtn = document.querySelector(".dropbtn");
+const dropdown = document.getElementById("browseDropdown");
+const bookGenres = document.getElementById("bookGenres");
+const genreList = document.getElementById("bookGenres");
+const mobileGenreList = document.getElementById("mobileGenres");
 
 // Book Data
 const books = [
@@ -118,13 +122,80 @@ const filters = {
 // === Filtering Logic ===
 const applyAllFilters = () => {
   const filtered = books
-    .filter((b) => b.title.toLowerCase().includes(filters.search.toLowerCase()))
+    .filter((b) => 
+  !filters.search || b.title.toLowerCase().includes(filters.search.toLowerCase())
+)
     .filter((b) => !filters.genre || b.genre === filters.genre)
     .filter((b) => filters.year == null || b.year === filters.year)
     
 
   renderBooks(filtered);
 };
+
+
+// Grab genres dynamically
+const uniqueGenres = [...new Set(books.map(book => book.genre))];
+
+
+// Dropdown toggle
+dropBtn.addEventListener("click", () => {
+  dropdown.classList.toggle("show");
+});
+
+// Close dropdown if clicked outside
+window.addEventListener("click", (e) => {
+  if (!e.target.closest(".browse-dropdown")) {
+    dropdown.classList.remove("show");
+  }
+});
+
+
+
+uniqueGenres.forEach(genre => { 
+// Desktop 
+const liDesktop = document.createElement("li"); 
+const linkDesktop = document.createElement("a"); 
+linkDesktop.href = "#"; 
+linkDesktop.textContent = genre; 
+liDesktop.appendChild(linkDesktop); 
+genreList.appendChild(liDesktop); 
+// Mobile 
+const liMobile = document.createElement("li"); 
+const linkMobile = document.createElement("a"); 
+linkMobile.href = "#"; 
+linkMobile.textContent = genre; 
+liMobile.appendChild(linkMobile); 
+mobileGenreList.appendChild(liMobile); 
+});
+
+
+function handleGenreClick(e) {
+  if (e.target.tagName === "A") {
+    e.preventDefault();
+    const selectedGenre = e.target.textContent;
+    filters.genre = selectedGenre;
+    applyAllFilters();
+
+    // Always close dropdown
+    dropdown.classList.remove("show");
+
+    // Close sidebar only if it’s open
+    if (sidebar.classList.contains("is-open")) {
+      sidebar.classList.remove("is-open");
+      sidebarBackdrop.classList.remove("is-on");
+      hamburgerMenu.classList.remove("is-active");
+      hamburgerMenu.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+  }
+}
+
+
+// Delegate events
+genreList.addEventListener("click", handleGenreClick);
+mobileGenreList.addEventListener("click", handleGenreClick);
+
+
 
 // Mobile Sidebar Toggle
 
