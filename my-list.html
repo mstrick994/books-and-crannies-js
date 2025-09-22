@@ -17,7 +17,7 @@
   <body class="gradient-bg my-list-page">
     <div class="page-wrapper">
   <!-- HEADER -->
-    <header class="header-bar">
+     <header class="header-bar">
       <div class="wrapper header-wrapper">
         <!-- Logo -->
         <div class="logo-component">
@@ -30,13 +30,13 @@
         </div>
 
         <div class="nav-search-container">
-            <!-- My Books Collection -->
+          <!-- My Books Collection -->
           <div class="my-books-component">
             <section class="my-books">
-             <button class="my-books-btn">
-              <a href="my-list.html">My Books</a>
-               <span class="my-books-count" id="myBooksCount">0</span>
-            </button>
+              <button class="my-books-btn">
+                <a href="my-list.html">My Books</a>
+                <span class="my-books-count" id="myBooksCount">0</span>
+              </button>
             </section>
           </div>
           <!-- Navigation Dropdown -->
@@ -98,21 +98,16 @@
 
         <!-- Auth Links -->
         <ul class="auth-component">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
+          <li class="login"><a href="auth.html" class="btn">Login</a></li>
+          <li><a href="auth.html" class="btn primary">Sign Up</a></li>
         </ul>
-
-        <!-- Hamburger Menu -->
-        <button
-          class="hamburger-menu"
-          id="hamburgerMenu"
-          aria-label="Open menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
+      <!-- Hamburger Menu -->
+      <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
 
 
@@ -190,6 +185,8 @@
         </nav>
       </div>
     </aside>
+
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
     <!-- MAIN CONTENT -->
     <main class="main">
