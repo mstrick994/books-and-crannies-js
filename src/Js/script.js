@@ -133,7 +133,7 @@ const applyAllFilters = () => {
 };
 
 
-// Grab genres dynamically
+// Grab genres dynamically with Set
 const uniqueGenres = [...new Set(books.map(book => book.genre))];
 
 
@@ -155,14 +155,14 @@ uniqueGenres.forEach(genre => {
 // Desktop 
 const liDesktop = document.createElement("li"); 
 const linkDesktop = document.createElement("a"); 
-linkDesktop.href = "#"; 
+linkDesktop.href = "#"; // placeholder (stops navigation for now)
 linkDesktop.textContent = genre; 
 liDesktop.appendChild(linkDesktop); 
 genreList.appendChild(liDesktop); 
 // Mobile 
 const liMobile = document.createElement("li"); 
 const linkMobile = document.createElement("a"); 
-linkMobile.href = "#"; 
+linkMobile.href = "#"; // placeholder (stops navigation for now)
 linkMobile.textContent = genre; 
 liMobile.appendChild(linkMobile); 
 mobileGenreList.appendChild(liMobile); 
@@ -170,9 +170,18 @@ mobileGenreList.appendChild(liMobile);
 
 
 function handleGenreClick(e) {
+   // Guard check: only react if they clicked an <a> element
+  // (e.target.tagName gives the uppercase name of the clicked element).
   if (e.target.tagName === "A") {
-    e.preventDefault();
+    e.preventDefault(); // stops <a href="#"> from scrolling to top
+
+
+    // Read the genre name directly from the <a> text (e.g., "Classic").
+    // This works because we set link.textContent = genre earlier.
     const selectedGenre = e.target.textContent;
+
+    // Save chosen genre into our filters object
+    // and run filter logic to re-render books based on new filters
     filters.genre = selectedGenre;
     applyAllFilters();
 
@@ -191,7 +200,7 @@ function handleGenreClick(e) {
 }
 
 
-// Delegate events
+// Delegate events (listen on the <ul>, catch clicks on <a>)
 genreList.addEventListener("click", handleGenreClick);
 mobileGenreList.addEventListener("click", handleGenreClick);
 

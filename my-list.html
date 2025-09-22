@@ -117,108 +117,77 @@
 
 
     <!-- MOBILE SIDEBAR -->
-    <aside class="mobile-sidebar">
-      <div class="wrapper header-wrapper">
-        <!-- Logo -->
-        <div class="logo-component">
-          <h1>
-            <a href="/index.html">
-              <span class="top-line">Books &</span>
-              <span class="bottom-line">Crannies</span>
-            </a>
-          </h1>
+    <aside id="sidebar" class="mobile-sidebar" aria-labelledby="sidebarTitle">
+      <header class="drawer-header">
+        <h2 id="sidebarTitle">My Library</h2>
+        <div class="auth-actions">
+          <a href="auth.html" class="btn btn-outline">Log In</a>
+          <a href="auth.html" class="btn btn-primary">Sign Up</a>
         </div>
-
-        <div class="nav-search-container">
-          <!-- My Books Collection -->
-          <div class="my-books-component">
-            <section class="my-books">
-             <button class="my-books-btn">
-              <a href="my-list.html">My Books</a>
-               <span class="my-books-count" id="myBooksCount">0</span>
+        <div class="sidebar-searchbar">
+          <form class="sidebar-search-form" action="/search" method="get">
+            <label for="sidebarSearchBy" class="sidebar-search-label"
+              >Search by:</label
+            >
+            <select
+              class="sidebar-search-dropdown"
+              aria-label="Search by"
+              id="sidebarSearchBy"
+              name="searchBy"
+            >
+              <option value="all">All</option>
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+              <option value="trending">Trending</option>
+              <option value="price">Price</option>
+              <option value="best-sellers">Best Sellers</option>
+            </select>
+            <input
+              type="text"
+              name="q"
+              class="sidebar-search-input"
+              placeholder="Search books…"
+              aria-label="Search"
+            />
+            <button
+              type="submit"
+              class="sidebar-search-btn"
+              aria-label="Search"
+            >
+              Enter
             </button>
-            </section>
-          </div>
-          <!-- Navigation Dropdown -->
-          <div class="navigation-component">
-            <section class="browse-dropdown">
-              <button class="dropbtn" id="browseBtnMobile">Browse</button>
-              <div id="browseDropdownMobile" class="dropdown-content">
-                <ul class="book-genres" id="bookGenresMobile">
-                  <!-- JS will inject <li> genre links here -->
-                </ul>
-              </div>
-            </section>
-          </div>
-
-          <!-- Search Bar -->
-          <div class="search-component">
-            <div class="searchbar-component">
-              <div class="searchbar">
-                <div class="search-facet">
-                  <label class="search-facet-selector">
-                    <span class="search-facet-value" aria-hidden="true"></span>
-                    <select
-                      class="search-by-dropdown"
-                      aria-label="Search by"
-                      id="searchByMobile"
-                    >
-                      <option value="all">All</option>
-                      <option value="title">Title</option>
-                      <option value="trending">Trending</option>
-                      <option value="author">Author</option>
-                      <option value="price">Price</option>
-                      <option value="best-sellers">Best Sellers</option>
-                    </select>
-                  </label>
-                </div>
-                <form
-                  class="searchbar-input"
-                  id="searchFormMobile"
-                  action="/search"
-                  method="get"
-                >
-                  <input
-                    type="text"
-                    name="q"
-                    placeholder="Search"
-                    aria-label="search"
-                    id="searchInputMobile"
-                  />
-                  <input
-                    class="search-bar-submit"
-                    type="submit"
-                    value=""
-                    aria-label="Search submit"
-                    id="searchSubmitMobile"
-                  />
-                </form>
-              </div>
-              <div class="search-dropdown" id="searchDropdownMobile">
-                <ul class="search-results" id="searchResultsMobile">
-                  <!-- JS will inject live search results here -->
-                </ul>
-              </div>
-            </div>
+          </form>
+          <div class="sidebar-search-results">
+            <ul>
+              <!-- JS will inject live search results here -->
+            </ul>
           </div>
         </div>
+      </header>
 
-        <!-- Auth Links -->
-        <ul class="auth-component" id="authLinksMobile">
-          <li class="login"><a class="btn">Login</a></li>
-          <li><a class="btn primary">Sign Up</a></li>
-        </ul>
+      <div class="drawer-scroll">
+        <nav class="drawer-section" aria-label="Browse">
+          <h4 class="section-title">Browse</h4>
+          <ul class="drawer-list" id="mobileGenres">
+           <!-- JS will inject book genres here -->
+            <li>
+              <a class="mobile my-books-btn" href="my-list.html"
+                >My Books
+                <span class="mobile my-books-count" id="myBooksCountMobile"
+                  >0</span
+                >
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-        <!-- Hamburger Menu -->
-        <button
-          class="hamburger-menu"
-          id="hamburgerMenuMobile"
-          aria-label="Open menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <nav class="drawer-section" aria-label="Contribute">
+          <h3 class="section-title">Contribute</h3>
+          <ul class="drawer-list">
+            <li><a href="#">Add a Book</a></li>
+            <li><a href="#">…</a></li>
+          </ul>
+        </nav>
       </div>
     </aside>
 
@@ -235,7 +204,6 @@
            <!-- Saved Books -->
           <article class="my-books product-cards" id="myBooks">
             <!-- From Uiverse.io by eslam-hany -->
-<img src="./src/Photos/book-covers/the-great-gatsby.jpg" alt="test cover"/>
             <!-- JS will populate book cards here -->
           </article>
         </div>
@@ -305,5 +273,6 @@
 
     <!--  MAIN JS -->
     <script src="./src/Js/script.js"></script>
+    <script src="./src/Js/collections.js"></script>
   </body>
 </html>
