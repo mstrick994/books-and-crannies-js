@@ -7,7 +7,11 @@ const dropdown = document.getElementById("browseDropdown");
 const bookGenres = document.getElementById("bookGenres");
 const genreList = document.getElementById("bookGenres");
 const mobileGenreList = document.getElementById("mobileGenres");
-
+const searchFacet = document.getElementById("searchFacet");
+const searchFacetValue = document.getElementById("searchFacetValue");
+const searchForm = document.querySelector('.searchbar-input');
+const searchInput = document.querySelector('.searchbar-input input[type="text"]');
+const mobileSearchInput = document.querySelector(".sidebar-search-input");
 // Book Data
 const books = [
   {
@@ -106,6 +110,18 @@ const books = [
     image: "/src/Photos/book-covers/little-women.jpg",
     link: "https://openlibrary.org/works/OL29983W/Little_Women?edition=key:/books/OL21516677M",
   },
+  {
+  title: "Moby-Dick",
+  author: "Herman Melville",
+  genre: "Adventure",
+  year: 1851,
+  best_seller: false,
+  trending: true,
+  description:
+    "An epic sea voyage that follows Captain Ahab’s obsessive quest to hunt the great white whale, exploring themes of obsession, fate, and man’s struggle against nature.",
+  image: "/src/Photos/book-covers/moby-dick.jpg",
+  link: "https://openlibrary.org/works/OL102749W/Moby_Dick?edition=key%3A/books/OL37044701M",
+},
 ];
 
 // === State ===
@@ -122,12 +138,11 @@ const filters = {
 // === Filtering Logic ===
 const applyAllFilters = () => {
   const filtered = books
-    .filter((b) => 
-  !filters.search || b.title.toLowerCase().includes(filters.search.toLowerCase())
-)
+    .filter((b) => !filters.search || b.title.toLowerCase().includes(filters.search.toLowerCase()))
     .filter((b) => !filters.genre || b.genre === filters.genre)
     .filter((b) => filters.year == null || b.year === filters.year)
-    
+    .filter((b) => filters.best_seller == null || b.best_seller === filters.best_seller)
+    .filter((b) => filters.trending == null || b.trending === filters.trending);
 
   renderBooks(filtered);
 };
@@ -249,6 +264,7 @@ const renderBook = (book, index) => {
                   <p>${book.description}</p>  
                 </div>
                 <div class="cover">
+                ${book.best_seller ? `<span class="best-seller-tag">Best Seller</span>` : ""}
                   <img src="${book.image}"/>
                 </div>
                 <button class="read-btn"><a href="${book.link}" target="_blank"
@@ -259,6 +275,8 @@ const renderBook = (book, index) => {
                 <span class="title-value">${book.title}</span>
                 <h4 class="card-author">Author:</h4>
                 <span class="author-value">${book.author}</span>
+                 <h4 class="card-year">Year:</h4>
+                <span class="genre-year">${book.year}</span>
                 <h4 class="card-genre">Genre:</h4>
                 <span class="genre-value">${book.genre}</span>
               </div>
@@ -271,3 +289,24 @@ const renderBooks = (arr) => {
 }
 
 renderBooks(books);
+
+
+
+//  Mobile Search Input Logic
+mobileSearchInput.addEventListener('input', (e) => {
+  filters.search = e.target.value; //update value
+  applyAllFilters(); // re-run filtering
+})
+
+mobileSearchInput.addEventListener('input', (e) => {
+  filters.search = e.target.value;
+  applyAllFilters(); 
+})
+
+
+// Prevent Page Reload
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault(); // stop the page reload
+  // the input event already updates filters.search
+  // so we don’t need extra logic here
+});

@@ -784,6 +784,18 @@ h2 {
   transform: rotatey(-85deg);
 }
 
+.best-seller-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: gold;
+  color: black;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
 /* Book Card stylings */
 
 .cover img {

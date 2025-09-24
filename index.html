@@ -55,8 +55,8 @@
             <div class="searchbar-component">
               <div class="searchbar">
                 <div class="search-facet">
-                  <label class="search-facet-selector">
-                    <span class="search-facet-value" aria-hidden="true"></span>
+                  <label class="search-facet-selector" id="searchFacet">
+                    <span class="search-facet-value" id="searchFacetValue" aria-hidden="true"></span>
                     <select
                       class="search-by-dropdown"
                       aria-label="Search by"
@@ -133,7 +133,7 @@
           <a href="auth.html" class="btn btn-primary">Sign Up</a>
         </div>
         <div class="sidebar-searchbar">
-          <form class="sidebar-search-form" action="/search" method="get">
+          <form class="sidebar-search-form">
             <label for="sidebarSearchBy" class="sidebar-search-label"
               >Search by:</label
             >
