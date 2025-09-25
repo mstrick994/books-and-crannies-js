@@ -814,17 +814,18 @@ h2 {
   margin-bottom: 1rem;
   justify-content: center; /* Centers the entire grid */
   justify-items: center; /* Centers each card */
-  align-items: start; /* Aligns cards to top */
+  align-items: stretch; /* Ensures cards stretch to fill row height */
   padding: 0 var(--space-2);
 }
 
 .product-card {
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  flex: 1 1 calc(33% - var(--space-4)); /* Flex-grow, flex-shrink, flex-basis */
   width: 100%;
-  max-width: 100%;
+  max-width: 500px; 
   padding: 0.7rem;
   box-shadow: 1px 1px 12px #000;
   background-color: rgb(245, 242, 209);

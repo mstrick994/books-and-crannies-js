@@ -67,7 +67,7 @@
                       <option value="title">Title</option>
                       <option value="trending">Trending</option>
                       <option value="author">Author</option>
-                      <option value="price">Price</option>
+
                       <option value="best-sellers">Best Sellers</option>
                     </select>
                   </label>
@@ -110,8 +110,6 @@
       </button>
     </header>
 
-  
-
     <!-- MOBILE SIDEBAR -->
     <aside id="sidebar" class="mobile-sidebar" aria-labelledby="sidebarTitle">
       <header class="drawer-header">
@@ -135,7 +133,6 @@
               <option value="title">Title</option>
               <option value="author">Author</option>
               <option value="trending">Trending</option>
-              <option value="price">Price</option>
               <option value="best-sellers">Best Sellers</option>
             </select>
             <input
@@ -165,7 +162,7 @@
         <nav class="drawer-section" aria-label="Browse">
           <h4 class="section-title">Browse</h4>
           <ul class="drawer-list" id="mobileGenres">
-           <!-- JS will inject book genres here -->
+            <!-- JS will inject book genres here -->
             <li>
               <a class="mobile my-books-btn" href="my-list.html"
                 >My Books
@@ -190,7 +187,7 @@
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
     <!-- Sign Up -->
-     <h2 class="form-header">Sign-Up</h2>
+    <h2 class="form-header">Sign-Up</h2>
     <main>
       <section class="form-container">
         <div class="form-wrapper">
@@ -247,33 +244,32 @@
       </section>
     </main>
 
-        <!-- Login Form (hidden by default) -->
-       <h2 class="form-header"  style="display: none;">Login</h2>
-        <section class="form-container"  style="display: none;">
-          <div class="form-wrapper">
-          <form id="loginForm">
+    <!-- Login Form (hidden by default) -->
+    <h2 class="form-header" style="display: none">Login</h2>
+    <section class="form-container" style="display: none">
+      <div class="form-wrapper">
+        <form id="loginForm">
           <div class="field-group">
-                <label for="userName">Username</label>
-                <input type="text" id="userName" name="userName" />
-                <small id="userNameError" class="error-message"></small>
-              </div>
-          <!-- Password Row -->
-            <section class="form-row password-section">
-              <div class="field-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" />
-                <small id="passwordError" class="error-message"></small>
-              </div>
-        </section>
-
-           <!-- Submit Button -->
-            <button id="submitBtn" type="submit" name="submitBtn" disabled>
-              Submit
-            </button>
-          </form>
+            <label for="userName">Username</label>
+            <input type="text" id="userName" name="userName" />
+            <small id="userNameError" class="error-message"></small>
           </div>
+          <!-- Password Row -->
+          <section class="form-row password-section">
+            <div class="field-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" />
+              <small id="passwordError" class="error-message"></small>
+            </div>
           </section>
-          
+
+          <!-- Submit Button -->
+          <button id="submitBtn" type="submit" name="submitBtn" disabled>
+            Submit
+          </button>
+        </form>
+      </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -335,7 +331,7 @@
     </div>
 
     <!--  MAIN JS -->
-      <script src="./src/Js/script.js"></script>
+    <script src="./src/Js/script.js"></script>
     <script src="./src/Js/auth.js"></script>
   </body>
 </html>

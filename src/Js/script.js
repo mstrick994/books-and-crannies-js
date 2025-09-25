@@ -10,8 +10,10 @@ const mobileGenreList = document.getElementById("mobileGenres");
 const searchFacet = document.getElementById("searchFacet");
 const searchFacetValue = document.getElementById("searchFacetValue");
 const searchForm = document.querySelector('.searchbar-input');
-const searchInput = document.querySelector('.searchbar-input input[type="text"]');
+const mobileSearchForm = document.querySelector('.sidebar-search-form');
+const searchInput = document.querySelector(".search-input");
 const mobileSearchInput = document.querySelector(".sidebar-search-input");
+
 // Book Data
 const books = [
   {
@@ -135,10 +137,16 @@ const filters = {
   trending: null,
 };
 
+const searchResults = books.map(b => ({
+  ...b,
+  searchString: `${b.title} ${b.author} ${b.genre} ${b.year} ${b.best_seller} ${b.trending}`.toLowerCase()
+}));
+
+
 // === Filtering Logic ===
 const applyAllFilters = () => {
-  const filtered = books
-    .filter((b) => !filters.search || b.title.toLowerCase().includes(filters.search.toLowerCase()))
+  const filtered = searchResults
+    .filter((b) => !filters.search || b.searchString.toLowerCase().includes(filters.search.toLowerCase()))
     .filter((b) => !filters.genre || b.genre === filters.genre)
     .filter((b) => filters.year == null || b.year === filters.year)
     .filter((b) => filters.best_seller == null || b.best_seller === filters.best_seller)
@@ -288,25 +296,28 @@ const renderBooks = (arr) => {
   productCards.innerHTML = arr.map((b, i) => renderBook(b, i)).join("");
 }
 
-renderBooks(books);
+renderBooks(searchResults);
 
 
 
-//  Mobile Search Input Logic
-mobileSearchInput.addEventListener('input', (e) => {
-  filters.search = e.target.value; //update value
-  applyAllFilters(); // re-run filtering
-})
-
-mobileSearchInput.addEventListener('input', (e) => {
-  filters.search = e.target.value;
-  applyAllFilters(); 
-})
 
 
-// Prevent Page Reload
+
+
+// Search form
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault(); // stop the page reload
-  // the input event already updates filters.search
-  // so we don’t need extra logic here
+  filters.search = searchInput.value;
+  applyAllFilters();
 });
+
+
+mobileSearchForm.addEventListener('submit', (e) => {
+  e.preventDefault(); 
+  filters.search = mobileSearchInput.value;
+  applyAllFilters();
+})
+
+
+
+
