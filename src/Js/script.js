@@ -13,7 +13,7 @@ const searchForm = document.querySelector('.searchbar-input');
 const mobileSearchForm = document.querySelector('.sidebar-search-form');
 const searchInput = document.querySelector(".search-input");
 const mobileSearchInput = document.querySelector(".sidebar-search-input");
-
+const searchBy = document.getElementById("searchBy");
 // Book Data
 const books = [
   {
@@ -131,9 +131,9 @@ let hasUserFiltered = false;
 
 const filters = {
   search: null,
+  searchBy: "all",
   genre: null,
   year: null,
-  best_seller: null,
   trending: null,
 };
 
@@ -143,17 +143,55 @@ const searchResults = books.map(b => ({
 }));
 
 
+
 // === Filtering Logic ===
 const applyAllFilters = () => {
-  const filtered = searchResults
-    .filter((b) => !filters.search || b.searchString.toLowerCase().includes(filters.search.toLowerCase()))
+  const filtered = books
+    // search + best-sellers combined
+    .filter((b) => {
+      if (filters.searchBy === "best-sellers") {
+        // Case 1: search box empty → only show best sellers
+        if (!filters.search) return b.best_seller;
+
+        // Case 2: search box not empty → only search within best sellers
+        return (
+          b.best_seller &&
+          (
+            b.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+            b.author.toLowerCase().includes(filters.search.toLowerCase()) ||
+            b.genre.toLowerCase().includes(filters.search.toLowerCase())
+          )
+        );
+      }
+
+      // Default: title, author, or all
+      let fieldToSearch;
+      if (filters.searchBy === "title") {
+        fieldToSearch = b.title;
+      } else if (filters.searchBy === "author") {
+        fieldToSearch = b.author;
+      } else {
+        fieldToSearch = `${b.title} ${b.author} ${b.genre}`;
+      }
+
+      return !filters.search || fieldToSearch.toLowerCase().includes(filters.search.toLowerCase());
+    })
+    // other filters
     .filter((b) => !filters.genre || b.genre === filters.genre)
     .filter((b) => filters.year == null || b.year === filters.year)
-    .filter((b) => filters.best_seller == null || b.best_seller === filters.best_seller)
     .filter((b) => filters.trending == null || b.trending === filters.trending);
+
+  // "No results" handling
+  if (filtered.length === 0) {
+    productCards.innerHTML = "<p>No books found.</p>";
+    return; 
+  }
 
   renderBooks(filtered);
 };
+
+
+
 
 
 // Grab genres dynamically with Set
@@ -316,7 +354,15 @@ mobileSearchForm.addEventListener('submit', (e) => {
   e.preventDefault(); 
   filters.search = mobileSearchInput.value;
   applyAllFilters();
-})
+});
+
+// Search facet logic
+searchBy.addEventListener("change", (e) => {
+  filters.searchBy = e.target.value;
+  applyAllFilters();
+});
+
+
 
 
 
