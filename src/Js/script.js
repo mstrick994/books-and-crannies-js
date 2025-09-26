@@ -14,6 +14,11 @@ const mobileSearchForm = document.querySelector('.sidebar-search-form');
 const searchInput = document.querySelector(".search-input");
 const mobileSearchInput = document.querySelector(".sidebar-search-input");
 const searchBy = document.getElementById("searchBy");
+const myBooksCount = document.getElementById("myBooksCount");
+const myBooksCountMobile = document.getElementById("myBooksCountMobile");
+const addBtn = document.querySelector(".add-btn");
+let count = 0;
+const collection = new Set();
 // Book Data
 const books = [
   {
@@ -303,7 +308,7 @@ sidebarBackdrop.addEventListener("click", () => {
 // Populate Book Cards
 
 const renderBook = (book, index) => {
-
+    const inCollection = collection.has(book.title); // using title as unique I
   return `<div class="product-card" data-index="${index}">
               <div class="book">
                 <div class="inner">
@@ -326,7 +331,7 @@ const renderBook = (book, index) => {
                 <h4 class="card-genre">Genre:</h4>
                 <span class="genre-value">${book.genre}</span>
               </div>
-              <button class="add-btn">Add to Collection</button>
+              <button class="add-btn">${inCollection ? "Remove from Collection" : "Add to Collection"}</button>
             </div>`;
 };
 
@@ -363,7 +368,31 @@ searchBy.addEventListener("change", (e) => {
 });
 
 
+// Add to Collection
 
+productCards.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-btn")) {
+    const card = e.target.closest(".product-card");
+    const index = card.dataset.index;
+    const book = books[index];
+
+    if (collection.has(book.title)) {
+      // remove
+      collection.delete(book.title);
+      count--;
+      e.target.textContent = "Add to Collection";
+    } else {
+      // add
+      collection.add(book.title);
+      count++;
+      e.target.textContent = "Remove from Collection";
+    }
+
+    // update tally both desktop & mobile
+    myBooksCount.textContent = count;
+    myBooksCountMobile.textContent = count;
+  }
+});
 
 
 
