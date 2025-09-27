@@ -17,8 +17,15 @@ const searchBy = document.getElementById("searchBy");
 const myBooksCount = document.getElementById("myBooksCount");
 const myBooksCountMobile = document.getElementById("myBooksCountMobile");
 const addBtn = document.querySelector(".add-btn");
-let count = 0;
-const collection = new Set();
+
+// Load from localStorage
+const savedCollection = JSON.parse(localStorage.getItem("collection")) || [];
+const collection = new Set(savedCollection);
+// Initialize tally count
+let count = collection.size;
+myBooksCount.textContent = count;
+myBooksCountMobile.textContent = count;
+
 // Book Data
 const books = [
   {
@@ -370,6 +377,11 @@ searchBy.addEventListener("change", (e) => {
 
 // Add to Collection
 
+// Save whenever updated
+const saveCollection = () => {
+  localStorage.setItem("collection", JSON.stringify([...collection]));
+}
+
 productCards.addEventListener("click", (e) => {
   if (e.target.classList.contains("add-btn")) {
     const card = e.target.closest(".product-card");
@@ -388,11 +400,15 @@ productCards.addEventListener("click", (e) => {
       e.target.textContent = "Remove from Collection";
     }
 
+    // 🔑 Persist to localStorage
+    localStorage.setItem("collection", JSON.stringify([...collection]));
+
     // update tally both desktop & mobile
     myBooksCount.textContent = count;
     myBooksCountMobile.textContent = count;
   }
 });
+
 
 
 
