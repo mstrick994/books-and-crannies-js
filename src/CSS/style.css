@@ -26,7 +26,7 @@ body {
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
-html{
+html {
   scroll-behavior: smooth;
 }
 html,
@@ -300,7 +300,7 @@ h2 {
   left: 0;
   background-color: white;
   min-width: 180px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   border-radius: 4px;
   padding: 0.5rem 0;
@@ -330,7 +330,6 @@ h2 {
 .show {
   display: block;
 }
-
 
 .dropbtn {
   background: none;
@@ -805,7 +804,6 @@ h2 {
   object-fit: cover;
 }
 
-
 .product-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -825,7 +823,7 @@ h2 {
   flex-direction: column;
   flex: 1 1 calc(33% - var(--space-4)); /* Flex-grow, flex-shrink, flex-basis */
   width: 100%;
-  max-width: 500px; 
+  max-width: 500px;
   padding: 0.7rem;
   box-shadow: 1px 1px 12px #000;
   background-color: rgb(245, 242, 209);
@@ -869,8 +867,6 @@ h2 {
   color: black;
 }
 
-
-
 .add-btn {
   font-size: var(--text-xs);
   margin-top: var(--space-);
@@ -885,7 +881,6 @@ h2 {
   max-width: 700px;
   transition: background-color var(--transition-fast);
 }
-
 
 .read-btn {
   transition: background-color var(--transition-fast);
@@ -1171,6 +1166,20 @@ h2 {
 
 /* Submit button */
 #submitBtn {
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.login-btn {
   padding: 15px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;

@@ -98,8 +98,12 @@
 
         <!-- Auth Links -->
         <ul class="auth-component">
-          <li class="login"><a href="auth.html" class="btn">Login</a></li>
-          <li><a href="auth.html" class="btn primary">Sign Up</a></li>
+          <li class="login">
+            <a href="auth.html?mode=login" class="btn">Login</a>
+          </li>
+          <li>
+            <a href="auth.html?mode=signup" class="btn primary">Sign Up</a>
+          </li>
         </ul>
       </div>
       <!-- Hamburger Menu -->
@@ -115,8 +119,8 @@
       <header class="drawer-header">
         <h2 id="sidebarTitle">My Library</h2>
         <div class="auth-actions">
-          <a href="auth.html" class="btn btn-outline">Log In</a>
-          <a href="auth.html" class="btn btn-primary">Sign Up</a>
+          <a href="auth.html?mode=login" class="btn btn-outline">Log In</a>
+          <a href="auth.html?mode=signup" class="btn btn-primary">Sign Up</a>
         </div>
         <div class="sidebar-searchbar">
           <form class="sidebar-search-form" action="/search" method="get">
@@ -187,7 +191,7 @@
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
     <!-- Sign Up -->
-    <h2 class="form-header">Sign-Up</h2>
+    <h2 class="form-header" id="formHeader">Sign-Up</h2>
     <main>
       <section class="form-container">
         <div class="form-wrapper">
@@ -245,31 +249,40 @@
     </main>
 
     <!-- Login Form (hidden by default) -->
-    <h2 class="form-header" style="display: none">Login</h2>
-    <section class="form-container" style="display: none">
-      <div class="form-wrapper">
-        <form id="loginForm">
-          <div class="field-group">
-            <label for="userName">Username</label>
-            <input type="text" id="userName" name="userName" />
-            <small id="userNameError" class="error-message"></small>
-          </div>
-          <!-- Password Row -->
-          <section class="form-row password-section">
-            <div class="field-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" />
-              <small id="passwordError" class="error-message"></small>
-            </div>
-          </section>
+    <main id="loginMain" style="display: none">
+      <section class="form-container">
+        <div class="form-wrapper">
+          <form id="loginForm">
+            <!-- Username Field -->
+            <section class="form-row">
+              <div class="field-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" name="loginUsername" />
+                <small id="loginUsernameError" class="error-message"></small>
+              </div>
+            </section>
 
-          <!-- Submit Button -->
-          <button id="submitBtn" type="submit" name="submitBtn" disabled>
-            Submit
-          </button>
-        </form>
-      </div>
-    </section>
+            <!-- Password Field -->
+            <section class="form-row">
+              <div class="field-group">
+                <label for="loginPassword">Password</label>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="loginPassword"
+                />
+                <small id="loginPasswordError" class="error-message"></small>
+              </div>
+            </section>
+
+            <!-- Submit Button -->
+            <button class="login-btn" id="loginSubmitBtn" type="submit" name="loginSubmitBtn">
+              Login
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="footer">
