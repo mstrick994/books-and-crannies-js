@@ -9,8 +9,8 @@ const genreList = document.getElementById("bookGenres");
 const mobileGenreList = document.getElementById("mobileGenres");
 const searchFacet = document.getElementById("searchFacet");
 const searchFacetValue = document.getElementById("searchFacetValue");
-const searchForm = document.querySelector('.searchbar-input');
-const mobileSearchForm = document.querySelector('.sidebar-search-form');
+const searchForm = document.querySelector(".searchbar-input");
+const mobileSearchForm = document.querySelector(".sidebar-search-form");
 const searchInput = document.querySelector(".search-input");
 const mobileSearchInput = document.querySelector(".sidebar-search-input");
 const searchBy = document.getElementById("searchBy");
@@ -25,6 +25,16 @@ const collection = new Set(savedCollection);
 let count = collection.size;
 myBooksCount.textContent = count;
 myBooksCountMobile.textContent = count;
+
+// Update counter when page loads (in case user navigated from my-list page)
+window.addEventListener("load", () => {
+  const updatedCollection = new Set(
+    JSON.parse(localStorage.getItem("collection")) || []
+  );
+  count = updatedCollection.size;
+  myBooksCount.textContent = count;
+  myBooksCountMobile.textContent = count;
+});
 
 // Book Data
 const books = [
@@ -125,17 +135,17 @@ const books = [
     link: "https://openlibrary.org/works/OL29983W/Little_Women?edition=key:/books/OL21516677M",
   },
   {
-  title: "Moby-Dick",
-  author: "Herman Melville",
-  genre: "Adventure",
-  year: 1851,
-  best_seller: false,
-  trending: true,
-  description:
-    "An epic sea voyage that follows Captain Ahab’s obsessive quest to hunt the great white whale, exploring themes of obsession, fate, and man’s struggle against nature.",
-  image: "/src/Photos/book-covers/moby-dick.jpg",
-  link: "https://openlibrary.org/works/OL102749W/Moby_Dick?edition=key%3A/books/OL37044701M",
-},
+    title: "Moby-Dick",
+    author: "Herman Melville",
+    genre: "Adventure",
+    year: 1851,
+    best_seller: false,
+    trending: true,
+    description:
+      "An epic sea voyage that follows Captain Ahab’s obsessive quest to hunt the great white whale, exploring themes of obsession, fate, and man’s struggle against nature.",
+    image: "/src/Photos/book-covers/moby-dick.jpg",
+    link: "https://openlibrary.org/works/OL102749W/Moby_Dick?edition=key%3A/books/OL37044701M",
+  },
 ];
 
 // === State ===
@@ -149,12 +159,11 @@ const filters = {
   trending: null,
 };
 
-const searchResults = books.map(b => ({
+const searchResults = books.map((b) => ({
   ...b,
-  searchString: `${b.title} ${b.author} ${b.genre} ${b.year} ${b.best_seller} ${b.trending}`.toLowerCase()
+  searchString:
+    `${b.title} ${b.author} ${b.genre} ${b.year} ${b.best_seller} ${b.trending}`.toLowerCase(),
 }));
-
-
 
 // === Filtering Logic ===
 const applyAllFilters = () => {
@@ -168,11 +177,9 @@ const applyAllFilters = () => {
         // Case 2: search box not empty → only search within best sellers
         return (
           b.best_seller &&
-          (
-            b.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+          (b.title.toLowerCase().includes(filters.search.toLowerCase()) ||
             b.author.toLowerCase().includes(filters.search.toLowerCase()) ||
-            b.genre.toLowerCase().includes(filters.search.toLowerCase())
-          )
+            b.genre.toLowerCase().includes(filters.search.toLowerCase()))
         );
       }
 
@@ -186,7 +193,10 @@ const applyAllFilters = () => {
         fieldToSearch = `${b.title} ${b.author} ${b.genre}`;
       }
 
-      return !filters.search || fieldToSearch.toLowerCase().includes(filters.search.toLowerCase());
+      return (
+        !filters.search ||
+        fieldToSearch.toLowerCase().includes(filters.search.toLowerCase())
+      );
     })
     // other filters
     .filter((b) => !filters.genre || b.genre === filters.genre)
@@ -196,19 +206,14 @@ const applyAllFilters = () => {
   // "No results" handling
   if (filtered.length === 0) {
     productCards.innerHTML = "<p>No books found.</p>";
-    return; 
+    return;
   }
 
   renderBooks(filtered);
 };
 
-
-
-
-
 // Grab genres dynamically with Set
-const uniqueGenres = [...new Set(books.map(book => book.genre))];
-
+const uniqueGenres = [...new Set(books.map((book) => book.genre))];
 
 // Dropdown toggle
 dropBtn.addEventListener("click", () => {
@@ -222,32 +227,33 @@ window.addEventListener("click", (e) => {
   }
 });
 
-
-
-uniqueGenres.forEach(genre => { 
-// Desktop 
-const liDesktop = document.createElement("li"); 
-const linkDesktop = document.createElement("a"); 
-linkDesktop.href = "#"; // placeholder (stops navigation for now)
-linkDesktop.textContent = genre; 
-liDesktop.appendChild(linkDesktop); 
-genreList.appendChild(liDesktop); 
-// Mobile 
-const liMobile = document.createElement("li"); 
-const linkMobile = document.createElement("a"); 
-linkMobile.href = "#"; // placeholder (stops navigation for now)
-linkMobile.textContent = genre; 
-liMobile.appendChild(linkMobile); 
-mobileGenreList.appendChild(liMobile); 
+uniqueGenres.forEach((genre) => {
+  // Desktop
+  const liDesktop = document.createElement("li");
+  const linkDesktop = document.createElement("a");
+  linkDesktop.href = "#"; // placeholder (stops navigation for now)
+  linkDesktop.textContent = genre;
+  liDesktop.appendChild(linkDesktop);
+  genreList.appendChild(liDesktop);
+  // Mobile
+  const liMobile = document.createElement("li");
+  const linkMobile = document.createElement("a");
+  linkMobile.href = "#"; // placeholder (stops navigation for now)
+  linkMobile.textContent = genre;
+  liMobile.appendChild(linkMobile);
+  mobileGenreList.appendChild(liMobile);
 });
 
-
 function handleGenreClick(e) {
-   // Guard check: only react if they clicked an <a> element
+  // Guard check: only react if they clicked an <a> element
   // (e.target.tagName gives the uppercase name of the clicked element).
   if (e.target.tagName === "A") {
-    e.preventDefault(); // stops <a href="#"> from scrolling to top
+    // Don't prevent default for My Books link
+    if (e.target.classList.contains("my-books-btn")) {
+      return; // Let the link navigate normally
+    }
 
+    e.preventDefault(); // stops <a href="#"> from scrolling to top
 
     // Read the genre name directly from the <a> text (e.g., "Classic").
     // This works because we set link.textContent = genre earlier.
@@ -261,7 +267,7 @@ function handleGenreClick(e) {
     // Always close dropdown
     dropdown.classList.remove("show");
 
-    // Close sidebar only if it’s open
+    // Close sidebar only if it's open
     if (sidebar.classList.contains("is-open")) {
       sidebar.classList.remove("is-open");
       sidebarBackdrop.classList.remove("is-on");
@@ -272,12 +278,9 @@ function handleGenreClick(e) {
   }
 }
 
-
 // Delegate events (listen on the <ul>, catch clicks on <a>)
 genreList.addEventListener("click", handleGenreClick);
 mobileGenreList.addEventListener("click", handleGenreClick);
-
-
 
 // Mobile Sidebar Toggle
 
@@ -315,14 +318,18 @@ sidebarBackdrop.addEventListener("click", () => {
 // Populate Book Cards
 
 const renderBook = (book, index) => {
-    const inCollection = collection.has(book.title); // using title as unique I
+  const inCollection = collection.has(book.title); // using title as unique I
   return `<div class="product-card" data-index="${index}">
               <div class="book">
                 <div class="inner">
                   <p>${book.description}</p>  
                 </div>
                 <div class="cover">
-                ${book.best_seller ? `<span class="best-seller-tag">Best Seller</span>` : ""}
+                ${
+                  book.best_seller
+                    ? `<span class="best-seller-tag">Best Seller</span>`
+                    : ""
+                }
                   <img src="${book.image}"/>
                 </div>
                 <button class="read-btn"><a href="${book.link}" target="_blank"
@@ -338,32 +345,27 @@ const renderBook = (book, index) => {
                 <h4 class="card-genre">Genre:</h4>
                 <span class="genre-value">${book.genre}</span>
               </div>
-              <button class="add-btn">${inCollection ? "Remove from Collection" : "Add to Collection"}</button>
+              <button class="add-btn">${
+                inCollection ? "Remove from Collection" : "Add to Collection"
+              }</button>
             </div>`;
 };
 
 const renderBooks = (arr) => {
   productCards.innerHTML = arr.map((b, i) => renderBook(b, i)).join("");
-}
+};
 
 renderBooks(searchResults);
 
-
-
-
-
-
-
 // Search form
-searchForm.addEventListener('submit', (e) => {
+searchForm.addEventListener("submit", (e) => {
   e.preventDefault(); // stop the page reload
   filters.search = searchInput.value;
   applyAllFilters();
 });
 
-
-mobileSearchForm.addEventListener('submit', (e) => {
-  e.preventDefault(); 
+mobileSearchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   filters.search = mobileSearchInput.value;
   applyAllFilters();
 });
@@ -374,13 +376,12 @@ searchBy.addEventListener("change", (e) => {
   applyAllFilters();
 });
 
-
 // Add to Collection
 
 // Save whenever updated
 const saveCollection = () => {
   localStorage.setItem("collection", JSON.stringify([...collection]));
-}
+};
 
 productCards.addEventListener("click", (e) => {
   if (e.target.classList.contains("add-btn")) {
@@ -408,7 +409,3 @@ productCards.addEventListener("click", (e) => {
     myBooksCountMobile.textContent = count;
   }
 });
-
-
-
-
