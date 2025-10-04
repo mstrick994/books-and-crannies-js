@@ -739,7 +739,15 @@ h2 {
   color: #000;
 }
 
+.book .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .book .inner p {
+  flex: 1; /* description uses the vertical space */
   font-size: var(--text-lg);
   color: black;
   line-height: 1.4;
@@ -747,6 +755,15 @@ h2 {
   margin: 0; /* reset default margins */
   padding: 0px 25px 0px 30px; /* left + right padding (like book margins) */
   overflow: hidden;
+  text-overflow: ellipsis; /* adds "..." if text overflows */
+}
+
+.card-cover {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .cover {
@@ -812,7 +829,7 @@ h2 {
   margin-bottom: 1rem;
   justify-content: center; /* Centers the entire grid */
   justify-items: center; /* Centers each card */
-  align-items: stretch; /* Ensures cards stretch to fill row height */
+  align-items: stretch; 
   padding: 0 var(--space-2);
 }
 
@@ -823,7 +840,8 @@ h2 {
   flex-direction: column;
   flex: 1 1 calc(33% - var(--space-4)); /* Flex-grow, flex-shrink, flex-basis */
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
+  min-height: 350px;
   padding: 0.7rem;
   box-shadow: 1px 1px 12px #000;
   background-color: rgb(245, 242, 209);
@@ -836,7 +854,7 @@ h2 {
   color: var(--primary-50);
 }
 
-.product-info {
+.card-info {
   flex: 1; /* Takes remaining space */
   width: 100%; /* Full width of card */
   display: grid;
@@ -1277,6 +1295,10 @@ footer {
   .auth-component {
     display: none;
   }
+   .product-cards {
+    grid-template-columns: repeat(2, 1fr); /* force two-up layout */
+    gap: var(--space-2);
+  }
   .nav-search-container {
     justify-content: flex-start; /* Align search to the right */
   }
@@ -1330,8 +1352,22 @@ footer {
   }
 }
 
+
+@media (max-width: 537px) {
+  .searchbar {
+    display: none;
+  }
+}
+
+@media (max-width: 627px) {
+  .product-cards {
+    grid-template-columns: 1fr; /* single column on small screens */
+    gap: var(--space-3);
+  }
+}
+
 /* Further adjustments for smaller mobile screens */
-@media (max-width: 492px) {
+@media (max-width: 400px) {
   .wrapper {
     padding: 0 var(--space-2); /* Reduce horizontal padding */
   }
@@ -1345,8 +1381,4 @@ footer {
   }
 }
 
-@media (max-width: 537px) {
-  .searchbar {
-    display: none;
-  }
-}
+
