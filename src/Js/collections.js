@@ -1,5 +1,5 @@
 // Wait for DOM to be ready
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const myBooksContainer = document.getElementById("myBooks");
   const emptyMessage = document.getElementById("emptyMessage");
   const myBooksCount = document.getElementById("myBooksCount");
@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load saved collection from localStorage
   const saved = JSON.parse(localStorage.getItem("collection")) || [];
   const collection = new Set(saved);
+
+  // Dropdown logic
+  const dropBtn = document.querySelector(".dropbtn");
+  const dropdown = document.getElementById("browseDropdown");
+  const genreList = document.getElementById("bookGenres");
+  const mobileGenreList = document.getElementById("mobileGenres");
+
 
   // Book Data (same as in script.js)
   const books = [
@@ -126,39 +133,131 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
+  // Build unique genres for My List page
+const uniqueGenres = [...new Set(books.map(b => b.genre))];
+
+// Populate dropdowns (desktop + mobile)
+if (genreList && mobileGenreList) {
+  // Optional: include "All" at the top
+  const addLink = (ul, label) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = label;
+    a.dataset.genre = label;
+    li.appendChild(a);
+    ul.appendChild(li);
+  };
+
+  addLink(genreList, "All");
+  addLink(mobileGenreList, "All");
+  uniqueGenres.forEach(g => {
+    addLink(genreList, g);
+    addLink(mobileGenreList, g);
+  });
+}
+
+// Toggle + outside-close for dropdown
+if (dropBtn && dropdown) {
+  dropBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("show");
+  });
+  window.addEventListener("click", (e) => {
+    if (!e.target.closest(".browse-dropdown")) dropdown.classList.remove("show");
+  });
+}
+
+// Helper to render a given list of books into #myBooks
+const renderMyBooks = (list) => {
+  if (!list || list.length === 0) {
+    emptyMessage.style.display = "block";
+    myBooksContainer.innerHTML = "";
+    return;
+  }
+  emptyMessage.style.display = "none";
+  myBooksContainer.innerHTML = list.map((book) => {
+    const originalIndex = books.findIndex(b => b.title === book.title);
+    return renderBook(book, originalIndex);
+  }).join("");
+};
+
+// Handle clicks on genre items (My List page only)
+const handleGenreClick = (e) => {                         // NEW
+  if (e.target.tagName !== "A") return;
+  e.preventDefault();
+  const selected = e.target.dataset.genre || e.target.textContent;
+
+  // Source = only saved books
+  const savedTitles = JSON.parse(localStorage.getItem("collection")) || [];
+  const savedBooks = books.filter(b => savedTitles.includes(b.title));
+
+  const results = (selected === "All")
+    ? savedBooks
+    : savedBooks.filter(b => b.genre === selected);
+
+  renderMyBooks(results);
+  dropdown && dropdown.classList.remove("show");
+
+  // Close mobile sidebar if open
+  if (sidebar && sidebar.classList.contains("is-open")) {
+    sidebar.classList.remove("is-open");
+    sidebarBackdrop && sidebarBackdrop.classList.remove("is-on");
+    if (hamburgerMenu) {
+      hamburgerMenu.classList.remove("is-active");
+      hamburgerMenu.setAttribute("aria-expanded", "false");
+    }
+    document.body.style.overflow = "";
+  }
+}
+
+if (genreList) genreList.addEventListener("click", handleGenreClick);        // NEW
+if (mobileGenreList) mobileGenreList.addEventListener("click", handleGenreClick); // NEW
+
+
   // Render book function (same as in script.js)
   const renderBook = (book, originalIndex) => {
     const inCollection = collection.has(book.title);
-    return `<div class="product-card" data-index="${originalIndex}">
-              <div class="book">
-                <div class="inner">
-                  <p>${book.description}</p>  
-                </div>
-                <div class="cover">
-                ${
-                  book.best_seller
-                    ? `<span class="best-seller-tag">Best Seller</span>`
-                    : ""
-                }
-                  <img src="${book.image}"/>
-                </div>
-                <button class="read-btn"><a href="${book.link}" target="_blank"
-                rel="noopener">Read Online</a></button>
-              </div>
-              <div class="product-info">
-                <h4 class="card-title">Title:</h4>
-                <span class="title-value">${book.title}</span>
-                <h4 class="card-author">Author:</h4>
-                <span class="author-value">${book.author}</span>
-                 <h4 class="card-year">Year:</h4>
-                <span class="genre-year">${book.year}</span>
-                <h4 class="card-genre">Genre:</h4>
-                <span class="genre-value">${book.genre}</span>
-              </div>
-              <button class="add-btn">${
-                inCollection ? "Remove from Collection" : "Add to Collection"
-              }</button>
-            </div>`;
+     return `
+    <div class="product-card" data-index="${originalIndex}">
+      
+      <!-- Cover / Flipbook Area -->
+      <div class="card-cover">
+        <div class="book">
+          <div class="inner">
+            <p>${book.description}</p>  
+            <button class="read-btn">
+          <a href="${book.link}" target="_blank" rel="noopener">Read Online</a>
+        </button>
+          </div>
+          <div class="cover">
+            ${
+              book.best_seller
+                ? `<span class="best-seller-tag">Best Seller</span>`
+                : ""
+            }
+            <img src="${book.image}" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Area -->
+      <div class="card-info">
+        <h4 class="card-title">Title:</h4>
+        <span class="title-value">${book.title}</span>
+        <h4 class="card-author">Author:</h4>
+        <span class="author-value">${book.author}</span>
+        <h4 class="card-year">Year:</h4>
+        <span class="genre-year">${book.year}</span>
+        <h4 class="card-genre">Genre:</h4>
+        <span class="genre-value">${book.genre}</span>
+      </div>
+
+      <!-- Add Button -->
+        <button class="add-btn">
+          ${inCollection ? "Remove from Collection" : "Add to Collection"}
+        </button>
+    </div>
+  `;
   };
 
   // Update counter display
@@ -268,4 +367,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = "";
     });
   }
+
+  genreList.addEventListener("click", handleGenreClick);
+  mobileGenreList.addEventListener("click", handleGenreClick);
+
 }); // End of DOMContentLoaded

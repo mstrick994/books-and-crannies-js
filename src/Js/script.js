@@ -317,41 +317,6 @@ sidebarBackdrop.addEventListener("click", () => {
 
 // Populate Book Cards
 
-// const renderBook = (book, index) => {
-//   const inCollection = collection.has(book.title); // using title as unique I
-//   return `<div class="product-card" data-index="${index}">
-//               <div class="book">
-//                 <div class="inner">
-//                   <p>${book.description}</p>  
-//                 </div>
-//                 <div class="cover">
-//                 ${
-//                   book.best_seller
-//                     ? `<span class="best-seller-tag">Best Seller</span>`
-//                     : ""
-//                 }
-//                   <img src="${book.image}"/>
-//                 </div>
-//                 <button class="read-btn"><a href="${book.link}" target="_blank"
-//                 rel="noopener">Read Online</a></button>
-//               </div>
-//               <div class="product-info">
-//                 <h4 class="card-title">Title:</h4>
-//                 <span class="title-value">${book.title}</span>
-//                 <h4 class="card-author">Author:</h4>
-//                 <span class="author-value">${book.author}</span>
-//                  <h4 class="card-year">Year:</h4>
-//                 <span class="genre-year">${book.year}</span>
-//                 <h4 class="card-genre">Genre:</h4>
-//                 <span class="genre-value">${book.genre}</span>
-//               </div>
-//               <button class="add-btn">${
-//                 inCollection ? "Remove from Collection" : "Add to Collection"
-//               }</button>
-//             </div>`;
-// };
-
-
 const renderBook = (book, index) => {
   const inCollection = collection.has(book.title); // using title as unique ID
   return `
