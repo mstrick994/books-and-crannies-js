@@ -421,3 +421,16 @@ productCards.addEventListener("click", (e) => {
     myBooksCountMobile.textContent = count;
   }
 });
+
+// --- Handle search from redirected query (like from auth.html) ---
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get("q");
+
+  if (query) {
+    const searchInput = document.querySelector(".searchbar-input input[type='text']");
+    if (searchInput) searchInput.value = query; // visually show it
+    filters.search = query.trim().toLowerCase();
+    applyAllFilters(); 
+  }
+});

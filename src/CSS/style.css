@@ -600,13 +600,13 @@ h2 {
 
 .mobile.my-books-btn {
   position: relative;
-  display: block;
+  display: inline-block;
 }
 
 .mobile.my-books-count {
   position: absolute;
-  top: 7px;
-  right: 270px;
+  top: 5px;
+  right: 0;
 }
 
 .drawer-section {
@@ -1076,6 +1076,7 @@ h2 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0 1rem;
 }
 
 .form-wrapper {

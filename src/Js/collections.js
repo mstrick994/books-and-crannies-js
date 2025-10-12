@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const genreList = document.getElementById("bookGenres");
   const mobileGenreList = document.getElementById("mobileGenres");
 
+  // Search Filter Logic
+  const searchForm = document.querySelector(".searchbar-input");
+  const searchInput = searchForm?.querySelector(".search-input");
+  const mobileSearchForm = document.querySelector(".sidebar-search-form");
+  const mobileSearchInput = document.querySelector(".sidebar-search-input");
 
   // Book Data (same as in script.js)
   const books = [
@@ -134,90 +139,95 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // Build unique genres for My List page
-const uniqueGenres = [...new Set(books.map(b => b.genre))];
+  const uniqueGenres = [...new Set(books.map((b) => b.genre))];
 
-// Populate dropdowns (desktop + mobile)
-if (genreList && mobileGenreList) {
-  // Optional: include "All" at the top
-  const addLink = (ul, label) => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = "#";
-    a.textContent = label;
-    a.dataset.genre = label;
-    li.appendChild(a);
-    ul.appendChild(li);
+  // Populate dropdowns (desktop + mobile)
+  if (genreList && mobileGenreList) {
+    // Optional: include "All" at the top
+    const addLink = (ul, label) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = "#";
+      a.textContent = label;
+      a.dataset.genre = label;
+      li.appendChild(a);
+      ul.appendChild(li);
+    };
+
+    addLink(genreList, "All");
+    addLink(mobileGenreList, "All");
+    uniqueGenres.forEach((g) => {
+      addLink(genreList, g);
+      addLink(mobileGenreList, g);
+    });
+  }
+
+  // Toggle + outside-close for dropdown
+  if (dropBtn && dropdown) {
+    dropBtn.addEventListener("click", () => {
+      dropdown.classList.toggle("show");
+    });
+    window.addEventListener("click", (e) => {
+      if (!e.target.closest(".browse-dropdown"))
+        dropdown.classList.remove("show");
+    });
+  }
+
+  // Helper to render a given list of books into #myBooks
+  const renderMyBooks = (list) => {
+    if (!list || list.length === 0) {
+      emptyMessage.style.display = "block";
+      myBooksContainer.innerHTML = "";
+      return;
+    }
+    emptyMessage.style.display = "none";
+    myBooksContainer.innerHTML = list
+      .map((book) => {
+        const originalIndex = books.findIndex((b) => b.title === book.title);
+        return renderBook(book, originalIndex);
+      })
+      .join("");
   };
 
-  addLink(genreList, "All");
-  addLink(mobileGenreList, "All");
-  uniqueGenres.forEach(g => {
-    addLink(genreList, g);
-    addLink(mobileGenreList, g);
-  });
-}
+  // Handle clicks on genre items (My List page only)
+  const handleGenreClick = (e) => {
+    // NEW
+    if (e.target.tagName !== "A") return;
+    e.preventDefault();
+    const selected = e.target.dataset.genre || e.target.textContent;
 
-// Toggle + outside-close for dropdown
-if (dropBtn && dropdown) {
-  dropBtn.addEventListener("click", () => {
-    dropdown.classList.toggle("show");
-  });
-  window.addEventListener("click", (e) => {
-    if (!e.target.closest(".browse-dropdown")) dropdown.classList.remove("show");
-  });
-}
+    // Source = only saved books
+    const savedTitles = JSON.parse(localStorage.getItem("collection")) || [];
+    const savedBooks = books.filter((b) => savedTitles.includes(b.title));
 
-// Helper to render a given list of books into #myBooks
-const renderMyBooks = (list) => {
-  if (!list || list.length === 0) {
-    emptyMessage.style.display = "block";
-    myBooksContainer.innerHTML = "";
-    return;
-  }
-  emptyMessage.style.display = "none";
-  myBooksContainer.innerHTML = list.map((book) => {
-    const originalIndex = books.findIndex(b => b.title === book.title);
-    return renderBook(book, originalIndex);
-  }).join("");
-};
+    const results =
+      selected === "All"
+        ? savedBooks
+        : savedBooks.filter((b) => b.genre === selected);
 
-// Handle clicks on genre items (My List page only)
-const handleGenreClick = (e) => {                         // NEW
-  if (e.target.tagName !== "A") return;
-  e.preventDefault();
-  const selected = e.target.dataset.genre || e.target.textContent;
+    renderMyBooks(results);
+    dropdown && dropdown.classList.remove("show");
 
-  // Source = only saved books
-  const savedTitles = JSON.parse(localStorage.getItem("collection")) || [];
-  const savedBooks = books.filter(b => savedTitles.includes(b.title));
-
-  const results = (selected === "All")
-    ? savedBooks
-    : savedBooks.filter(b => b.genre === selected);
-
-  renderMyBooks(results);
-  dropdown && dropdown.classList.remove("show");
-
-  // Close mobile sidebar if open
-  if (sidebar && sidebar.classList.contains("is-open")) {
-    sidebar.classList.remove("is-open");
-    sidebarBackdrop && sidebarBackdrop.classList.remove("is-on");
-    if (hamburgerMenu) {
-      hamburgerMenu.classList.remove("is-active");
-      hamburgerMenu.setAttribute("aria-expanded", "false");
+    // Close mobile sidebar if open
+    if (sidebar && sidebar.classList.contains("is-open")) {
+      sidebar.classList.remove("is-open");
+      sidebarBackdrop && sidebarBackdrop.classList.remove("is-on");
+      if (hamburgerMenu) {
+        hamburgerMenu.classList.remove("is-active");
+        hamburgerMenu.setAttribute("aria-expanded", "false");
+      }
+      document.body.style.overflow = "";
     }
-    document.body.style.overflow = "";
-  }
-}
+  };
 
-if (genreList) genreList.addEventListener("click", handleGenreClick);        // NEW
-if (mobileGenreList) mobileGenreList.addEventListener("click", handleGenreClick); // NEW
-
+  if (genreList) genreList.addEventListener("click", handleGenreClick); // NEW
+  if (mobileGenreList)
+    mobileGenreList.addEventListener("click", handleGenreClick); // NEW
 
   // Render book function (same as in script.js)
   const renderBook = (book, originalIndex) => {
     const inCollection = collection.has(book.title);
-     return `
+    return `
     <div class="product-card" data-index="${originalIndex}">
       
       <!-- Cover / Flipbook Area -->
@@ -371,4 +381,36 @@ if (mobileGenreList) mobileGenreList.addEventListener("click", handleGenreClick)
   genreList.addEventListener("click", handleGenreClick);
   mobileGenreList.addEventListener("click", handleGenreClick);
 
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim().toLowerCase();
+      filterMyBooks(query);
+    });
+  }
+
+  if (mobileSearchForm && mobileSearchInput) {
+    mobileSearchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = mobileSearchInput.value.trim().toLowerCase();
+      filterMyBooks(query);
+    });
+  }
+
+  const filterMyBooks = (query) => {
+    const saved = JSON.parse(localStorage.getItem("collection")) || [];
+    const myBooks = books.filter((b) => saved.includes(b.title));
+
+    const filtered = myBooks.filter((b) =>
+      `${b.title} ${b.author} ${b.genre}`.toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) {
+      emptyMessage.style.display = "block";
+      myBooksContainer.innerHTML = "";
+    } else {
+      emptyMessage.style.display = "none";
+      myBooksContainer.innerHTML = filtered.map(renderBook).join("");
+    }
+  };
 }); // End of DOMContentLoaded

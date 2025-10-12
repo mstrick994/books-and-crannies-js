@@ -75,9 +75,10 @@
                       </select>
                     </label>
                   </div>
-                  <form class="searchbar-input" action="/search" method="get">
+                  <form class="searchbar-input">
                     <input
                       type="text"
+                      class="search-input"
                       name="q"
                       placeholder="Search"
                       aria-label="search"
@@ -126,7 +127,7 @@
             <a href="auth.html" class="btn btn-primary">Sign Up</a>
           </div>
           <div class="sidebar-searchbar">
-            <form class="sidebar-search-form" action="/search" method="get">
+            <form class="sidebar-search-form">
               <label for="sidebarSearchBy" class="sidebar-search-label"
                 >Search by:</label
               >
@@ -271,8 +272,8 @@
         </div>
       </div>
     </div>
-
     <!--  MAIN JS -->
+      <script src="./src/JS/search-shared.js"></script>
     <script src="./src/Js/collections.js"></script>
   </body>
 </html>

@@ -1,12 +1,69 @@
 const form = document.getElementById("form");
 
 // Auth Toggle Functionality - Use URL parameters
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () =>{
   const formHeader = document.getElementById("formHeader");
   const signupMain = document.querySelector("main");
   const loginMain = document.getElementById("loginMain");
 
-  // Check if we're on login or signup based on URL parameter
+ 
+  // Show login form, hide signup form
+  const showLogin = () => {
+    formHeader.textContent = "Login";
+    signupMain.style.display = "none";
+    loginMain.style.display = "block";
+  }
+
+  // Show signup form, hide login form
+  const showSignup = () => {
+    formHeader.textContent = "Sign-Up";
+    signupMain.style.display = "block";
+    loginMain.style.display = "none";
+  }
+
+  // Make functions globally available for header buttons
+  window.showLogin = showLogin;
+  window.showSignup = showSignup;
+   // Mode switch
+  const urlParams = new URLSearchParams(window.location.search);
+  const mode = urlParams.get("mode") || "signup";
+  mode === "login" ? showLogin() : showSignup();
+
+  // --- Login + Signup Validation logic ---
+  // (leave your validation code here untouched)
+
+  // --- Global Search Redirect Logic ---
+  const searchForm = document.querySelector(".searchbar-input");
+  const searchInput = searchForm?.querySelector("input[type='text']");
+  const mobileSearchForm = document.querySelector(".sidebar-search-form");
+  const mobileSearchInput = document.querySelector(".sidebar-search-input");
+
+  // Desktop search submit
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = encodeURIComponent(searchInput.value.trim());
+      if (query) {
+        console.log("Redirecting to:", `index.html?q=${query}`);
+        window.location.href = `index.html?q=${query}`;
+      }
+    });
+  }
+
+  // Mobile search submit
+  if (mobileSearchForm && mobileSearchInput) {
+    mobileSearchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = encodeURIComponent(mobileSearchInput.value.trim());
+      if (query) {
+        console.log("Redirecting to:", `index.html?q=${query}`);
+        window.location.href = `index.html?q=${query}`;
+      }
+    });
+  }
+});
+
+ // Check if we're on login or signup based on URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const mode = urlParams.get("mode") || "signup";
 
@@ -17,24 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     showSignup();
   }
 
-  // Show login form, hide signup form
-  function showLogin() {
-    formHeader.textContent = "Login";
-    signupMain.style.display = "none";
-    loginMain.style.display = "block";
-  }
-
-  // Show signup form, hide login form
-  function showSignup() {
-    formHeader.textContent = "Sign-Up";
-    signupMain.style.display = "block";
-    loginMain.style.display = "none";
-  }
-
-  // Make functions globally available for header buttons
-  window.showLogin = showLogin;
-  window.showSignup = showSignup;
-});
 
 // Login form elements
 const loginForm = document.getElementById("loginForm");
@@ -218,3 +257,4 @@ form.addEventListener("submit", (e) => {
 
 // Initial button state
 updateSubmitButtonState();
+
