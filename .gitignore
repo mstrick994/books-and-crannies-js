@@ -1,0 +1,23 @@
+# Personal learning notes (private - not for recruiters)
+NOTES.md
+MY_NOTES.md
+personal-notes.md
+learning-notes/
+TYPESCRIPT-NOTES.md
+KEY-TAKEAWAYS.md
+
+# VS Code settings (optional - uncomment if you don't want to share)
+# .vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor backup files
+*~
+*.swp
+*.swo

@@ -27,6 +27,7 @@ if (productCardsContainer) {
     const desktopSearchInput = querySelector(".search-input");
     const mobileSearchInput = querySelector(".sidebar-search-input");
     const searchBySelect = getElementById("searchBy");
+    const mobileSearchBySelect = getElementById("sidebarSearchBy");
     // Add Book Modal Elements
     const addBookModal = getElementById("addBookModal");
     const closeModal = getElementById("closeModal");
@@ -67,13 +68,24 @@ if (productCardsContainer) {
     };
     const normalizeText = (text) => (text || "").toString().trim().toLowerCase();
     const matchesSearchFacet = (book, searchQuery) => {
-        // If no search query, only filter by best-sellers if that's selected
+        // If no search query, filter by best-sellers or trending if selected
         if (!searchQuery) {
-            return filters.searchBy === "best-sellers" ? book.best_seller : true;
+            if (filters.searchBy === "best-sellers")
+                return book.best_seller;
+            if (filters.searchBy === "trending")
+                return book.trending;
+            return true;
         }
         // If searching for best-sellers only
         if (filters.searchBy === "best-sellers") {
             return (book.best_seller &&
+                `${book.title} ${book.author} ${book.genre}`
+                    .toLowerCase()
+                    .includes(searchQuery));
+        }
+        // If searching for trending only
+        if (filters.searchBy === "trending") {
+            return (book.trending &&
                 `${book.title} ${book.author} ${book.genre}`
                     .toLowerCase()
                     .includes(searchQuery));
@@ -203,6 +215,12 @@ if (productCardsContainer) {
             applyAllFilters();
         });
     }
+    if (mobileSearchBySelect) {
+        mobileSearchBySelect.addEventListener("change", (event) => {
+            filters.searchBy = event.target.value;
+            applyAllFilters();
+        });
+    }
     productCardsContainer.addEventListener("click", (event) => {
         var _a;
         const target = event.target;
@@ -229,6 +247,20 @@ if (productCardsContainer) {
             : "Add to Collection";
         // Update the collection counter badge
         updateCollectionCount(updatedCollectionSet);
+    });
+    // Mobile: Toggle book flip on click
+    productCardsContainer.addEventListener("click", (event) => {
+        const target = event.target;
+        // Find if we clicked on a book element
+        const bookElement = target.closest(".book");
+        // If clicked on edit/delete buttons or add-to-collection, don't flip
+        if (target.closest(".card-overlay") || target.classList.contains("add-btn")) {
+            return;
+        }
+        // Toggle the flipped class on mobile
+        if (bookElement) {
+            bookElement.classList.toggle("flipped");
+        }
     });
     // Add a new book modal window
     productCardsContainer.addEventListener("click", (event) => {
@@ -266,6 +298,22 @@ if (productCardsContainer) {
     });
     cancelBtn === null || cancelBtn === void 0 ? void 0 : cancelBtn.addEventListener("click", (event) => {
         addBookModal === null || addBookModal === void 0 ? void 0 : addBookModal.classList.add("hidden");
+    });
+    // Mobile sidebar "Add a Book" button
+    const mobileAddBookBtn = getElementById("mobileAddBookBtn");
+    mobileAddBookBtn === null || mobileAddBookBtn === void 0 ? void 0 : mobileAddBookBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        // Close mobile sidebar
+        const sidebar = getElementById("sidebar");
+        const backdrop = querySelector(".sidebar-backdrop");
+        const hamburgerMenu = getElementById("hamburgerMenu");
+        sidebar === null || sidebar === void 0 ? void 0 : sidebar.classList.remove("is-open");
+        backdrop === null || backdrop === void 0 ? void 0 : backdrop.classList.remove("is-on");
+        document.body.style.overflow = "";
+        hamburgerMenu === null || hamburgerMenu === void 0 ? void 0 : hamburgerMenu.classList.remove("is-active");
+        hamburgerMenu === null || hamburgerMenu === void 0 ? void 0 : hamburgerMenu.setAttribute("aria-expanded", "false");
+        // Open add book modal
+        addBookModal === null || addBookModal === void 0 ? void 0 : addBookModal.classList.remove("hidden");
     });
     // Populate genre dropdown with standard genres + "Other" option
     GENRE_LIST.forEach((genre) => {
@@ -405,8 +453,10 @@ if (productCardsContainer) {
         const target = event.target;
         // Check if clicked element is the edit button
         if (target.classList.contains("edit-btn") || target.closest(".edit-btn")) {
-            const button = target.classList.contains("edit-btn") ? target : target.closest(".edit-btn");
-            const bookIndex = Number(button === null || button === void 0 ? void 0 : button.getAttribute("data-book-index"));
+            const button = target.closest(".edit-btn");
+            if (!button)
+                return;
+            const bookIndex = Number(button.dataset.bookIndex);
             const book = books[bookIndex];
             // Set edit mode
             editingBookIndex = bookIndex;
@@ -470,9 +520,12 @@ if (productCardsContainer) {
             return;
         }
         // Check if clicked element is the delete button
-        if (target.classList.contains("delete-btn") || target.closest(".delete-btn")) {
-            const button = target.classList.contains("delete-btn") ? target : target.closest(".delete-btn");
-            const bookIndex = Number(button === null || button === void 0 ? void 0 : button.getAttribute("data-book-index"));
+        if (target.classList.contains("delete-btn") ||
+            target.closest(".delete-btn")) {
+            const button = target.closest(".delete-btn");
+            if (!button)
+                return;
+            const bookIndex = Number(button.dataset.bookIndex);
             bookIndexToDelete = bookIndex;
             deleteConfirmModal === null || deleteConfirmModal === void 0 ? void 0 : deleteConfirmModal.classList.remove("hidden");
             return;
@@ -506,7 +559,9 @@ if (productCardsContainer) {
         // Remove from collection if it was there
         const collectionSet = loadCollection();
         if (collectionSet.has(bookToDelete.title)) {
-            toggleBookInCollection(bookToDelete.title);
+            const toggleResult = toggleBookInCollection(bookToDelete.title);
+            // Update the collection counter badge
+            updateCollectionCount(toggleResult.collectionSet);
         }
         // Re-render books
         renderBooks(books);
