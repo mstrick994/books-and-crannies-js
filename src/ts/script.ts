@@ -365,6 +365,8 @@ if (productCardsContainer) {
     // Reset edit mode
     editingBookIndex = null;
     if (modalTitle) modalTitle.textContent = "Add New Book";
+    const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+    if (submitBtn) submitBtn.textContent = "Add Book";
 
     // Show the modal (remove hidden class)
     modal.classList.remove("hidden");
@@ -386,12 +388,20 @@ if (productCardsContainer) {
   });
 
   // Cancel or close out of Add Book Modal
-  closeModal?.addEventListener("click", (event: MouseEvent) => {
+  closeModal?.addEventListener("click", () => {
     addBookModal?.classList.add("hidden");
+    editingBookIndex = null;
+    if (modalTitle) modalTitle.textContent = "Add a New Book";
+    const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+    if (submitBtn) submitBtn.textContent = "Add Book";
   });
 
-  cancelBtn?.addEventListener("click", (event: MouseEvent) => {
+  cancelBtn?.addEventListener("click", () => {
     addBookModal?.classList.add("hidden");
+    editingBookIndex = null;
+    if (modalTitle) modalTitle.textContent = "Add a New Book";
+    const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+    if (submitBtn) submitBtn.textContent = "Add Book";
   });
 
   // Mobile sidebar "Add a Book" button
@@ -562,8 +572,10 @@ if (productCardsContainer) {
     // Close modal and reset form
     addBookModal?.classList.add("hidden");
     (event.target as HTMLFormElement).reset();
-
-    // Reset genre dropdown to default state
+    editingBookIndex = null;
+    if (modalTitle) modalTitle.textContent = "Add a New Book";
+    const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+    if (submitBtn) submitBtn.textContent = "Add Book";
     customGenreInput?.classList.add("hidden");
     customGenreInput?.removeAttribute("required");
     bookGenreDropdown?.setAttribute("required", "");
@@ -583,6 +595,8 @@ if (productCardsContainer) {
       // Set edit mode
       editingBookIndex = bookIndex;
       if (modalTitle) modalTitle.textContent = "Edit Book";
+      const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+      if (submitBtn) submitBtn.textContent = "Save Changes";
 
       // Get form elements
       const titleInput = getElementById("bookTitle") as HTMLInputElement;

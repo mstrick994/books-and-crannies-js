@@ -7,6 +7,7 @@ import {
   loadCollection,
   toggleBookInCollection,
   loadCustomBooks,
+  saveCustomBooks,
 } from "./collection-helpers.js";
 import {
   renderBookCard,
@@ -23,6 +24,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get references to page elements
   const myBooksContainer = getElementById("myBooks");
   const emptyMessage = getElementById("emptyMessage");
+
+  // Modal references
+  const addBookModal = getElementById("addBookModal");
+  const closeModalBtn = getElementById("closeModal");
+  const cancelBtn = getElementById("cancelBtn");
+  const deleteConfirmModal = getElementById("deleteConfirmModal");
+  const closeDeleteModal = getElementById("closeDeleteModal");
+  const cancelDeleteBtn = getElementById("cancelDeleteBtn");
+  const confirmDeleteBtn = getElementById("confirmDeleteBtn");
+  const modalTitle = document.querySelector<HTMLHeadingElement>(".modal-title");
+  const bookGenreDropdown = getElementById(
+    "bookGenre",
+  ) as HTMLSelectElement | null;
+  const customGenreInput = getElementById(
+    "customGenre",
+  ) as HTMLInputElement | null;
+  const bookImageFile = getElementById("bookImage") as HTMLInputElement | null;
+  const bookImageUrl = getElementById(
+    "bookImageUrl",
+  ) as HTMLInputElement | null;
+  const uploadRadio = getElementById("uploadImage") as HTMLInputElement | null;
+  const browseRadio = getElementById("browseImage") as HTMLInputElement | null;
+
+  let editingBookIndex: number | null = null;
+  let bookIndexToDelete: number | null = null;
 
   // If we're not on the My List page, exit early
   if (!myBooksContainer) return;
@@ -145,18 +171,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mobile: Toggle book flip on click (anywhere on card except buttons)
     const bookElement = target.closest(".book") as HTMLElement;
-    
-    // If clicked on edit/delete buttons or add-to-collection, don't flip
+
+    // Handle edit button
+    if (target.classList.contains("edit-btn") || target.closest(".edit-btn")) {
+      const button = target.closest(".edit-btn") as HTMLElement;
+      if (!button) return;
+      const bookIndex = Number(button.dataset.bookIndex);
+      const book = allBooks[bookIndex];
+
+      editingBookIndex = bookIndex;
+      if (modalTitle) modalTitle.textContent = "Edit Book";
+      const submitBtn =
+        document.querySelector<HTMLButtonElement>(".btn-submit");
+      if (submitBtn) submitBtn.textContent = "Save Changes";
+
+      const titleInput = getElementById("bookTitle") as HTMLInputElement;
+      const authorInput = getElementById("bookAuthor") as HTMLInputElement;
+      const yearInput = getElementById("bookYear") as HTMLInputElement;
+      const descriptionInput = getElementById(
+        "bookDescription",
+      ) as HTMLTextAreaElement;
+      const linkInput = getElementById("bookLink") as HTMLInputElement;
+      const customGenreGroup = getElementById("customGenreContainer");
+      const bestSellerCheckbox = getElementById(
+        "bookBestSeller",
+      ) as HTMLInputElement;
+      const trendingCheckbox = getElementById(
+        "bookTrending",
+      ) as HTMLInputElement;
+      const imageUrlInput = getElementById("bookImageUrl") as HTMLInputElement;
+
+      if (titleInput) titleInput.value = book.title;
+      if (authorInput) authorInput.value = book.author;
+      if (yearInput) yearInput.value = book.year.toString();
+      if (descriptionInput) descriptionInput.value = book.description;
+      if (linkInput) linkInput.value = book.link;
+
+      if (bookGenreDropdown) {
+        const genreArray = Array.from(GENRE_LIST);
+        if (genreArray.indexOf(book.genre) !== -1) {
+          bookGenreDropdown.value = book.genre;
+          customGenreGroup?.classList.add("hidden");
+        } else {
+          bookGenreDropdown.value = "Other";
+          customGenreGroup?.classList.remove("hidden");
+          if (customGenreInput) customGenreInput.value = book.genre;
+        }
+      }
+
+      if (bestSellerCheckbox) bestSellerCheckbox.checked = book.best_seller;
+      if (trendingCheckbox) trendingCheckbox.checked = book.trending;
+      if (imageUrlInput) imageUrlInput.value = book.image;
+      if (browseRadio) browseRadio.checked = true;
+      if (uploadRadio) uploadRadio.checked = false;
+      bookImageUrl?.classList.remove("hidden");
+      bookImageFile?.classList.add("hidden");
+      bookImageUrl?.setAttribute("required", "");
+      bookImageFile?.removeAttribute("required");
+
+      addBookModal?.classList.remove("hidden");
+      return;
+    }
+
+    // Handle delete button
     if (
-      target.closest(".card-overlay") ||
-      target.classList.contains("add-btn")
+      target.classList.contains("delete-btn") ||
+      target.closest(".delete-btn")
     ) {
-      // If clicking buttons, do nothing and let other handlers deal with it
-      if (!target.classList.contains("add-btn")) return;
-    } else if (bookElement) {
-      // Toggle flip for card clicks (not on buttons)
+      const button = target.closest(".delete-btn") as HTMLElement;
+      if (!button) return;
+      bookIndexToDelete = Number(button.dataset.bookIndex);
+      deleteConfirmModal?.classList.remove("hidden");
+      return;
+    }
+
+    // If clicked on overlay but not a button, don't flip
+    if (target.closest(".card-overlay")) return;
+
+    // Mobile flip toggle
+    if (bookElement && !target.classList.contains("add-btn")) {
       bookElement.classList.toggle("flipped");
-      return; // Don't process add-btn logic
+      return;
     }
 
     // Only respond to clicks on the add/remove button
@@ -239,4 +334,166 @@ document.addEventListener("DOMContentLoaded", () => {
       filterMyBooks(mobileSearchInput.value);
     });
   }
+
+  // Populate genre dropdown in the edit modal
+  GENRE_LIST.forEach((genre) => {
+    const option = document.createElement("option");
+    option.value = genre;
+    option.textContent = genre;
+    bookGenreDropdown?.appendChild(option);
+  });
+  const otherOption = document.createElement("option");
+  otherOption.value = "Other";
+  otherOption.textContent = "Other";
+  bookGenreDropdown?.appendChild(otherOption);
+
+  // Toggle custom genre input when "Other" is selected
+  bookGenreDropdown?.addEventListener("change", () => {
+    const customGenreGroup = getElementById("customGenreContainer");
+    if (bookGenreDropdown.value === "Other") {
+      customGenreGroup?.classList.remove("hidden");
+      customGenreInput?.classList.remove("hidden");
+      customGenreInput?.setAttribute("required", "");
+      bookGenreDropdown.removeAttribute("required");
+    } else {
+      customGenreGroup?.classList.add("hidden");
+      customGenreInput?.classList.add("hidden");
+      customGenreInput?.removeAttribute("required");
+      bookGenreDropdown.setAttribute("required", "");
+    }
+  });
+
+  // Modal radio button toggle
+  uploadRadio?.addEventListener("change", () => {
+    bookImageFile?.classList.remove("hidden");
+    bookImageFile?.setAttribute("required", "");
+    bookImageUrl?.classList.add("hidden");
+    bookImageUrl?.removeAttribute("required");
+  });
+  browseRadio?.addEventListener("change", () => {
+    bookImageFile?.classList.add("hidden");
+    bookImageFile?.removeAttribute("required");
+    bookImageUrl?.classList.remove("hidden");
+    bookImageUrl?.setAttribute("required", "");
+  });
+
+  const resetModalState = () => {
+    addBookModal?.classList.add("hidden");
+    editingBookIndex = null;
+    if (modalTitle) modalTitle.textContent = "Add a New Book";
+    const submitBtn = document.querySelector<HTMLButtonElement>(".btn-submit");
+    if (submitBtn) submitBtn.textContent = "Add Book";
+  };
+
+  // Close add/edit modal
+  closeModalBtn?.addEventListener("click", resetModalState);
+  cancelBtn?.addEventListener("click", resetModalState);
+
+  // Close delete modal
+  closeDeleteModal?.addEventListener("click", () => {
+    deleteConfirmModal?.classList.add("hidden");
+    bookIndexToDelete = null;
+  });
+  cancelDeleteBtn?.addEventListener("click", () => {
+    deleteConfirmModal?.classList.add("hidden");
+    bookIndexToDelete = null;
+  });
+
+  // Confirm delete
+  confirmDeleteBtn?.addEventListener("click", () => {
+    if (bookIndexToDelete === null) return;
+    const bookToDelete = allBooks[bookIndexToDelete];
+
+    allBooks.splice(bookIndexToDelete, 1);
+    bookIndexByTitle.clear();
+    allBooks.forEach((book, index) => bookIndexByTitle.set(book.title, index));
+
+    const customBooks = allBooks.slice(originalBooks.length);
+    saveCustomBooks(customBooks);
+
+    const currentCollection = loadCollection();
+    if (currentCollection.has(bookToDelete.title)) {
+      const toggleResult = toggleBookInCollection(bookToDelete.title);
+      updateCollectionCount(toggleResult.collectionSet);
+    }
+
+    const updatedBooks = allBooks.filter((b) => loadCollection().has(b.title));
+    renderMyBooks(updatedBooks);
+    deleteConfirmModal?.classList.add("hidden");
+    bookIndexToDelete = null;
+  });
+
+  // Add/Edit book form submission
+  const addBookForm = getElementById("addBookForm");
+  addBookForm?.addEventListener("submit", async (event: Event) => {
+    event.preventDefault();
+
+    const titleInput = getElementById("bookTitle") as HTMLInputElement;
+    const authorInput = getElementById("bookAuthor") as HTMLInputElement;
+    const genreSelect = getElementById("bookGenre") as HTMLSelectElement;
+    const yearInput = getElementById("bookYear") as HTMLInputElement;
+    const descriptionInput = getElementById(
+      "bookDescription",
+    ) as HTMLTextAreaElement;
+    const bestSellerCheckbox = getElementById(
+      "bookBestSeller",
+    ) as HTMLInputElement;
+    const trendingCheckbox = getElementById("bookTrending") as HTMLInputElement;
+    const linkInput = getElementById("bookLink") as HTMLInputElement;
+    const imageUrlInput = getElementById("bookImageUrl") as HTMLInputElement;
+    const imageFileInput = getElementById("bookImage") as HTMLInputElement;
+    const customGenreField = getElementById("customGenre") as HTMLInputElement;
+
+    let genre = genreSelect?.value || "";
+    if (genre === "Other" && customGenreField?.value)
+      genre = customGenreField.value;
+
+    let image = "";
+    if (
+      imageUrlInput &&
+      !imageUrlInput.classList.contains("hidden") &&
+      imageUrlInput.value
+    ) {
+      image = imageUrlInput.value;
+    } else if (imageFileInput?.files?.[0]) {
+      image = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject("Error reading file");
+        reader.readAsDataURL(imageFileInput.files![0]);
+      });
+    }
+
+    const updatedBook: Book = {
+      title: titleInput?.value || "",
+      author: authorInput?.value || "",
+      genre,
+      year: Number(yearInput?.value || 0),
+      description: descriptionInput?.value || "",
+      best_seller: bestSellerCheckbox?.checked || false,
+      trending: trendingCheckbox?.checked || false,
+      link: linkInput?.value || "",
+      image,
+    };
+
+    if (editingBookIndex !== null) {
+      allBooks[editingBookIndex] = updatedBook;
+    }
+
+    bookIndexByTitle.clear();
+    allBooks.forEach((book, index) => bookIndexByTitle.set(book.title, index));
+    const customBooks = allBooks.slice(originalBooks.length);
+    saveCustomBooks(customBooks);
+
+    const updatedCollection = loadCollection();
+    const updatedBooks = allBooks.filter((b) => updatedCollection.has(b.title));
+    renderMyBooks(updatedBooks);
+
+    addBookModal?.classList.add("hidden");
+    (event.target as HTMLFormElement).reset();
+    editingBookIndex = null;
+    customGenreInput?.classList.add("hidden");
+    customGenreInput?.removeAttribute("required");
+    bookGenreDropdown?.setAttribute("required", "");
+  });
 });

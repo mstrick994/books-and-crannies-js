@@ -277,6 +277,9 @@ if (productCardsContainer) {
         editingBookIndex = null;
         if (modalTitle)
             modalTitle.textContent = "Add New Book";
+        const submitBtn = document.querySelector(".btn-submit");
+        if (submitBtn)
+            submitBtn.textContent = "Add Book";
         // Show the modal (remove hidden class)
         modal.classList.remove("hidden");
     });
@@ -294,11 +297,23 @@ if (productCardsContainer) {
         bookImageFile === null || bookImageFile === void 0 ? void 0 : bookImageFile.setAttribute("required", "");
     });
     // Cancel or close out of Add Book Modal
-    closeModal === null || closeModal === void 0 ? void 0 : closeModal.addEventListener("click", (event) => {
+    closeModal === null || closeModal === void 0 ? void 0 : closeModal.addEventListener("click", () => {
         addBookModal === null || addBookModal === void 0 ? void 0 : addBookModal.classList.add("hidden");
+        editingBookIndex = null;
+        if (modalTitle)
+            modalTitle.textContent = "Add a New Book";
+        const submitBtn = document.querySelector(".btn-submit");
+        if (submitBtn)
+            submitBtn.textContent = "Add Book";
     });
-    cancelBtn === null || cancelBtn === void 0 ? void 0 : cancelBtn.addEventListener("click", (event) => {
+    cancelBtn === null || cancelBtn === void 0 ? void 0 : cancelBtn.addEventListener("click", () => {
         addBookModal === null || addBookModal === void 0 ? void 0 : addBookModal.classList.add("hidden");
+        editingBookIndex = null;
+        if (modalTitle)
+            modalTitle.textContent = "Add a New Book";
+        const submitBtn = document.querySelector(".btn-submit");
+        if (submitBtn)
+            submitBtn.textContent = "Add Book";
     });
     // Mobile sidebar "Add a Book" button
     const mobileAddBookBtn = getElementById("mobileAddBookBtn");
@@ -444,7 +459,12 @@ if (productCardsContainer) {
         // Close modal and reset form
         addBookModal === null || addBookModal === void 0 ? void 0 : addBookModal.classList.add("hidden");
         event.target.reset();
-        // Reset genre dropdown to default state
+        editingBookIndex = null;
+        if (modalTitle)
+            modalTitle.textContent = "Add a New Book";
+        const submitBtn = document.querySelector(".btn-submit");
+        if (submitBtn)
+            submitBtn.textContent = "Add Book";
         customGenreInput === null || customGenreInput === void 0 ? void 0 : customGenreInput.classList.add("hidden");
         customGenreInput === null || customGenreInput === void 0 ? void 0 : customGenreInput.removeAttribute("required");
         bookGenreDropdown === null || bookGenreDropdown === void 0 ? void 0 : bookGenreDropdown.setAttribute("required", "");
@@ -463,6 +483,9 @@ if (productCardsContainer) {
             editingBookIndex = bookIndex;
             if (modalTitle)
                 modalTitle.textContent = "Edit Book";
+            const submitBtn = document.querySelector(".btn-submit");
+            if (submitBtn)
+                submitBtn.textContent = "Save Changes";
             // Get form elements
             const titleInput = getElementById("bookTitle");
             const authorInput = getElementById("bookAuthor");
