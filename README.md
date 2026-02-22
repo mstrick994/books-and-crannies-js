@@ -1,4 +1,4 @@
-# í³š Books & Crannies â€”TypeScript Bookstore
+# ï¿½ï¿½ï¿½ Books & Crannies â€”TypeScript Bookstore
 
 **Books & Crannies** is a feature-rich online bookstore built with TypeScript, HTML, and CSS, showcasing modern frontend development patterns with strict type safety and modular architecture.
 
@@ -6,7 +6,7 @@ This project demonstrates advanced DOM manipulation, state management, localStor
 
 ---
 
-## í·© Core Features
+## ï¿½ï¿½ï¿½ Core Features
 
 ### Book Catalog & Discovery
 - Display curated collection of 9 classic books with 3D flip card UI
@@ -47,7 +47,7 @@ This project demonstrates advanced DOM manipulation, state management, localStor
 
 ---
 
-## í·‚ï¸ Project Structure
+## ï¿½ï¿½ï¿½ï¸ Project Structure
 
 \`\`\`
 Books and Crannies/
@@ -80,7 +80,7 @@ Books and Crannies/
 
 ---
 
-## í¾¯ Key Technical Highlights
+## ï¿½ï¿½ï¿½ Key Technical Highlights
 
 ### Type-Safe Architecture
 - Comprehensive \`Book\` interface with all required fields
@@ -114,7 +114,7 @@ Books and Crannies/
 
 ---
 
-## í´® Future Enhancements
+## ï¿½ï¿½ï¿½ Future Enhancements
 
 - Backend API integration (replace localStorage with database)
 - User authentication with JWT
@@ -127,14 +127,16 @@ Books and Crannies/
 
 ---
 
-## í¿—ï¸ Development Notes
+## ï¿½ï¿½ï¿½ï¸ Development Notes
 
 ### TypeScript Compilation
-Run \`tsc\` to compile TypeScript files to JavaScript:
-\`\`\`bash
+Run `tsc` to compile TypeScript files to JavaScript:
+```bash
 tsc
-\`\`\`
-Output goes to \`src/Js/\` directory.
+```
+Compiled `.js` files are generated alongside `.ts` files in `src/ts/` directory.
+
+**Important**: Always run `tsc` before deploying! The compiled `.js` files are gitignored (not tracked in version control) to keep GitHub showing TypeScript as the primary language.
 
 ### Browser Compatibility
 - Modern evergreen browsers (Chrome, Firefox, Safari, Edge)
@@ -144,7 +146,7 @@ Output goes to \`src/Js/\` directory.
 
 ---
 
-## í³š 3D Book Card UI Attribution
+## ï¿½ï¿½ï¿½ 3D Book Card UI Attribution
 
 Base flip card interaction inspired by a community snippet from [Uiverse.io](https://uiverse.io) (author: eslam-hany).
 
@@ -158,6 +160,6 @@ Base flip card interaction inspired by a community snippet from [Uiverse.io](htt
 
 ---
 
-## í³ License
+## ï¿½ï¿½ï¿½ License
 
 This is a portfolio/learning project. Feel free to reference or learn from the code structure.
