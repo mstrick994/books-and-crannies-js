@@ -22,8 +22,5 @@ npm-debug.log*
 *.swp
 *.swo
 
-# TypeScript compiled output (keep .ts files, ignore compiled .js)
-src/ts/*.js
-
 # Old vanilla JavaScript folder (migrated to TypeScript)
 src/Js/

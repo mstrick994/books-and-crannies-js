@@ -1,0 +1,4 @@
+# Tell GitHub to prioritize TypeScript for language detection
+*.ts linguist-detectable=true
+*.js linguist-generated=true
+src/ts/*.js linguist-generated=true
