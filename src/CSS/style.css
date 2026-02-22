@@ -773,7 +773,10 @@ h2 {
   text-align: center; /* keeps paragraphs neat */
   margin: 0; /* reset default margins */
   padding: 0px 25px 0px 30px; /* left + right padding (like book margins) */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto; /* allows vertical scrolling if description is too long */
+  word-break: break-word; /* breaks long words to prevent overflow */
+  max-height: 300px;
   text-overflow: ellipsis; /* adds "..." if text overflows */
 }
 
