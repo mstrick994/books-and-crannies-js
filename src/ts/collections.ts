@@ -142,6 +142,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   myBooksContainer.addEventListener("click", (event: MouseEvent) => {
     const target = event.target as HTMLElement;
+
+    // Mobile: Toggle book flip on click (anywhere on card except buttons)
+    const bookElement = target.closest(".book") as HTMLElement;
+    
+    // If clicked on edit/delete buttons or add-to-collection, don't flip
+    if (
+      target.closest(".card-overlay") ||
+      target.classList.contains("add-btn")
+    ) {
+      // If clicking buttons, do nothing and let other handlers deal with it
+      if (!target.classList.contains("add-btn")) return;
+    } else if (bookElement) {
+      // Toggle flip for card clicks (not on buttons)
+      bookElement.classList.toggle("flipped");
+      return; // Don't process add-btn logic
+    }
+
     // Only respond to clicks on the add/remove button
     if (!target.classList.contains("add-btn")) return;
 
